@@ -3,7 +3,7 @@ name: Deploy to Salesforce
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
+      - main
 
 jobs:
   deploy:
@@ -21,19 +21,15 @@ jobs:
     - name: Authenticate Salesforce Org
       env:
         SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
-        SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
-        SF_SECURITY_TOKEN: ${{ secrets.SF_SECURITY_TOKEN }}  # Required if IP is not whitelisted
+        SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
+        SF_PRIVATE_KEY: ${{ secrets.SF_PRIVATE_KEY }}
         SF_LOGIN_URL: https://login.salesforce.com  # Use https://login.salesforce.com for production
       run: |
-        echo "$SF_PASSWORD$SF_SECURITY_TOKEN" > password.txt
-        sfdx auth:username:password:login --username $SF_USERNAME --password $(cat password.txt) --instanceurl $SF_LOGIN_URL
+        echo "$SF_PRIVATE_KEY" > server.key
+        sfdx force:auth:jwt:grant --clientid $SF_CONSUMER_KEY --jwtkeyfile server.key --username $SF_USERNAME --instanceurl $SF_LOGIN_URL
 
     - name: Deploy to Salesforce
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
         sfdx force:source:deploy -p force-app/main/default/classes/CaseImagecontroller.cls -u $SF_SANDBOX_USERNAME
-    - name: Debug Repository Structure
-      run: |
-        ls -la
-        cat sfdx-project.json
