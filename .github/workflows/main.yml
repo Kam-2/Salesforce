@@ -32,4 +32,10 @@ jobs:
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
+        cd C:\tosalesforce  # Navigate to the Salesforce DX project directory
         sfdx force:source:deploy -p force-app/main/default/classes/CaseImagecontroller.cls -u $SF_SANDBOX_USERNAME
+
+    - name: Debug Repository Structure
+      run: |
+        ls -la
+        cat sfdx-project.json
