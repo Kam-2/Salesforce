@@ -1,0 +1,35 @@
+name: Deploy to Salesforce
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Salesforce CLI
+      run: |
+        sudo npm install -g sfdx-cli
+        sfdx --version
+
+    - name: Authenticate Salesforce Org
+      env:
+        SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
+        SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+        SF_SECURITY_TOKEN: ${{ secrets.SF_SECURITY_TOKEN }}  # Required if IP is not whitelisted
+        SF_LOGIN_URL: https://login.salesforce.com  # Use https://login.salesforce.com for production
+      run: |
+        echo "$SF_PASSWORD$SF_SECURITY_TOKEN" > password.txt
+        sfdx auth:username:password:login --username $SF_USERNAME --password $(cat password.txt) --instanceurl $SF_LOGIN_URL
+
+    - name: Deploy to Salesforce
+      env:
+        SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
+      run: |
+        sfdx force:source:deploy -p force-app/main/default/classes/CaseImagecontroller.cls -u $SF_SANDBOX_USERNAME
