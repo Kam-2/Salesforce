@@ -39,7 +39,7 @@ jobs:
         SF_LOGIN_URL: https://test.salesforce.com  # Sandbox login URL
       run: |
         echo "$SF_PRIVATE_KEY" > server.key
-        sfdx force:auth:jwt:grant --clientid $SF_CONSUMER_KEY --jwtkeyfile server.key --username $SF_USERNAME --instanceurl $SF_LOGIN_URL
+        sfdx force:auth:jwt:grant --clientid $SF_CONSUMER_KEY --jwtkeyfile new_server.key --username $SF_USERNAME --instanceurl $SF_LOGIN_URL
 
     - name: Deploy to Salesforce
       run: |
