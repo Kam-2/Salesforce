@@ -22,9 +22,9 @@ jobs:
     - name: Authenticate to Production Org (Main Branch)
       if: github.ref == 'refs/heads/main'
       env:
-        SF_USERNAME: ${{ secrets.SF_PROD_USERNAME }}
-        SF_CONSUMER_KEY: ${{ secrets.SF_PROD_CONSUMER_KEY }}
-        SF_PRIVATE_KEY: ${{ secrets.SF_PROD_PRIVATE_KEY }}
+        SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
+        SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
+        SF_PRIVATE_KEY: ${{ secrets.SF_PRIVATE_KEY }}
         SF_LOGIN_URL: https://login.salesforce.com  # Production login URL
       run: |
         echo "$SF_PRIVATE_KEY" > server.key
@@ -33,9 +33,9 @@ jobs:
     - name: Authenticate to Sandbox Org (Dev Branch)
       if: github.ref == 'refs/heads/dev'
       env:
-        SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
-        SF_CONSUMER_KEY: ${{ secrets.SF_SANDBOX_CONSUMER_KEY }}
-        SF_PRIVATE_KEY: ${{ secrets.SF_SANDBOX_PRIVATE_KEY }}
+        SF_USERNAME: ${{ secrets.SF_AI_USERNAME }}
+        SF_CONSUMER_KEY: ${{ secrets.AI_SANDBOX_CLIENTID }}
+        SF_PRIVATE_KEY: ${{ secrets.AI_SANDBOX_PRIVATEKEY }}
         SF_LOGIN_URL: https://test.salesforce.com  # Sandbox login URL
       run: |
         echo "$SF_PRIVATE_KEY" > server.key
@@ -45,10 +45,10 @@ jobs:
       run: |
         if [ "${{ github.ref }}" == "refs/heads/main" ]; then
           echo "Deploying to Production Org"
-          sfdx force:source:deploy -p force-app -u ${{ secrets.SF_PROD_USERNAME }} --json --loglevel debug > deploy.log
+          sfdx force:source:deploy -p force-app -u ${{ secrets.SF_SANDBOX_USERNAME }} --json --loglevel debug > deploy.log
         elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
           echo "Deploying to Sandbox Org"
-          sfdx force:source:deploy -p force-app -u ${{ secrets.SF_SANDBOX_USERNAME }} --json --loglevel debug > deploy.log
+          sfdx force:source:deploy -p force-app -u ${{ secrets.SF_AI_USERNAME }} --json --loglevel debug > deploy.log
         fi
 
         # Check if the deployment succeeded
