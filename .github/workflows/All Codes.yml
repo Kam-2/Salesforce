@@ -1,0 +1,35 @@
+name: Deploy all to Salesforce
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Salesforce CLI
+      run: |
+        sudo npm install -g sfdx-cli
+        sfdx --version
+
+    - name: Authenticate Salesforce Org
+      env:
+        SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
+        SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
+        SF_PRIVATE_KEY: ${{ secrets.SF_PRIVATE_KEY }}
+        SF_LOGIN_URL: https://login.salesforce.com  # Use https://test.salesforce.com for sandbox
+      run: |
+        echo "$SF_PRIVATE_KEY" > server.key
+        sfdx force:auth:jwt:grant --clientid $SF_CONSUMER_KEY --jwtkeyfile server.key --username $SF_USERNAME --instanceurl $SF_LOGIN_URL
+
+    - name: Deploy to Salesforce
+      env:
+        SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
+      run: |
+        sfdx force:source:deploy -p force-app -u $SF_SANDBOX_USERNAME
