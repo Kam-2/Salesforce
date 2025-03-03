@@ -26,7 +26,7 @@ jobs:
         SF_LOGIN_URL: https://login.salesforce.com  # Use https://login.salesforce.com for production
       run: |
         echo "$SF_PRIVATE_KEY" > server.key
-        sfdx force:auth:jwt:grant --client-id 3MVG9WVXk15qiz1JokwQNodKxoq7bXYXC4gMftqkABup4nMIzvmyfkdZ1wHSvX_Cr_00ckB9u9I1TxgytGihQ --jwt-key-file C:\Users\vizda\server.key --username Kamal26@gmail.com --instance-url https://login.salesforce.com
+        sfdx force:auth:jwt:grant --client-id 3MVG9WVXk15qiz1JokwQNodKxoq7bXYXC4gMftqkABup4nMIzvmyfkdZ1wHSvX_Cr_00ckB9u9I1TxgytGihQ --jwt-key-file server.key --username Kamal26@gmail.com --instance-url https://login.salesforce.com
     - name: Deploy to Salesforce
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
