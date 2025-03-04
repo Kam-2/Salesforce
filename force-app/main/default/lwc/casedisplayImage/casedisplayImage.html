@@ -1,0 +1,37 @@
+<template>
+  <div class="ccc">
+<lightning-card title="Attachments">
+  <template if:true={filesList.length}>
+         <template for:each={filesList} for:item="file">
+             <div key={file.value} class="slds-box">
+                 <div class="slds-grid slds-wrap">
+                   <!-- <img 
+            src={file} 
+            alt="User Image" 
+            height="100px" 
+            width="100px"/>-->
+                     <div class="slds-col slds-large-size_7-of-12 slds-small-size_6-of-12 slds-medium-size_7-of-12 slds-size_7-of-12">
+                       <p class="files"><strong>FileName - </strong>{file.label}</p>
+                     </div>
+                     <div class="cta slds-large-size_5-of-12 slds-small-size_6-of-12 slds-medium-size_5-of-12 slds-size_5-of-12">
+                     <div class="down">
+                       <a href={file.url} download>Download</a>
+                     </div>
+                     <div class="prev">
+                       <lightning-button label="Preview" 
+                       variant="brand"
+                      data-id={file.value}
+                      onclick={previewHandler}
+                       ></lightning-button>
+                     </div>
+                     </div>
+                   </div>
+             </div>
+         </template>
+  </template>
+  <template if:false={filesList.length}>
+           <p style="font-size: 16px; padding:0 12px;">No Photos are attached.</p>
+        </template>
+    </lightning-card> 
+  </div>
+</template>

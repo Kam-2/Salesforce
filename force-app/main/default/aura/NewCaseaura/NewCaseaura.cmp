@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,lightning:actionOverride">
+   <c:newCase recordId="{!v.recordId}" objectName="Case" fieldSetName="Your_Field_Set_Name"/>
+    <ltng:require styles="{!$Resource.Casecss + '/Casecss.css'}"/>
+</aura:component>
