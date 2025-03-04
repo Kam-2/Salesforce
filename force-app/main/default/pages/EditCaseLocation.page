@@ -1,0 +1,169 @@
+<apex:page standardController="case" sidebar="false" showHeader="false" extensions="EditCaseLocationCTRL"  title="Edit Location" lightningstylesheets="true">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+        <script src="https://maps.googleapis.com/maps/api/js?key={! $label.GoogleAPI_Key_CasesPA}&libraries=places&language=en"
+            type="text/javascript"></script>
+<apex:stylesheet value="{!URLFOR($Resource.Bootstrap, 'styles.css')}"/>
+<!-- <apex:outputPanel rendered="{! IF($User.Firstname=='Cube84' || $User.Firstname=='Daniel' || $User.Firstname=='Alex',true,false)}"> -->
+ <font class="slds-text-heading_medium" style="font-weight:bold;background: #1739b0;color:#fff;float: left;width: 100%;padding: 20px 8px;font-size:20px;text-align: center;"> Edit Location of the Case </font><br/><br/>
+
+ <apex:form id="thisform" >
+     <apex:pageMessages />
+     <c:MapforEditLocation ></c:MapforEditLocation>
+  
+           
+<apex:slds />
+<script>
+    
+    var MarkerIcon ='';
+    //document.getElementById('j_id0:j_id3:j_id4:addressinfoTEXT').innerHTML='Please enter the exact address of the public asset as applicable.';
+</script>
+
+<style>
+    .UpdateButtonCls{
+       
+left:2%;
+margin-top:13%;
+    }
+    .slds-scope input.autocompleteid::placeholder {
+    font-size: 15px;
+}
+    input.btn.slds-button.slds-button_neutral {
+    font-size: 16px;
+    padding: 3px 36px;
+    font-weight: 600;
+    border: 2px solid #1739B0;
+    color: #1739B0;
+    height: auto !important;
+}
+    input.btn.slds-button.slds-button_brand{
+    font-size: 16px;
+    padding: 3px 36px;
+    font-weight: 600;
+    background: #1739B0;
+    border: 2px solid #1739B0;
+    height: auto !important;
+    }
+    .slds-scope input.autocompleteid:focus {
+    box-shadow: none !important;
+    border: 2px solid #000 !important;
+}
+    .slds-scope input.autocompleteid {
+    z-index: 999999999;
+    /* margin: 0 auto !important; */
+    border-radius: 4px;
+    display: block;
+    padding: 20px 12px;
+    margin-top: 11px !important;
+    margin-left: 0;
+    font-size: 15px;
+    box-shadow: none;
+    border: 1px solid #ccc !important;
+}
+    form {
+    padding: 22px 52px;
+}
+    .new {
+    display: grid;
+    padding: 4px 0;
+    grid-template-columns: 1.5fr 3fr;
+}
+    .new {
+    display: grid;
+    padding: 4px 0;
+    grid-template-columns: 1.5fr 3fr;
+}
+</style>
+
+
+
+
+<br/>
+
+<br/><br/><br/>
+
+
+
+        
+ </apex:form>
+<script >
+
+    
+    //Initial code for map
+    
+     var Exist_latlong;
+    var firstTime='true';
+  
+       if('{!EditCase.latitude_District360__c}'!='' && '{!EditCase.longitude_District360__c}'!='')
+    {
+     Exist_latlong =  new google.maps.LatLng('{!EditCase.latitude_District360__c}', '{!EditCase.longitude_District360__c}');
+     passLAT(Exist_latlong.lat(),Exist_latlong.lng());  
+     
+    }else
+    {
+        Exist_latlong = new google.maps.LatLng('38.907659831112525','-77.03644154655763');
+        passLAT(Exist_latlong.lat(),Exist_latlong.lng());
+    }
+       var map = new google.maps.Map(document.getElementById(
+                        'mapCanvas'), {
+                        zoom: 17,
+                        center: Exist_latlong,
+                        disableDefaultUI: true,
+                        zoomControl: true,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: Exist_latlong,
+                        title: 'Drag on the location of the issue',
+                        map: map,
+                         icon :MarkerIcon,
+                        draggable: true
+                    });
+                     marker.addListener('click', function() { Open_Popup();});
+                   updateMarkerPosition(Exist_latlong);
+                    geocodePosition(Exist_latlong);
+   
+              google.maps.event.addListener(marker, 'dragstart', function() {
+                    updateMarkerAddress('Dragging...');
+                });
+
+                google.maps.event.addListener(marker, 'drag', function() {
+                    updateMarkerStatus('Dragging...');
+                    updateMarkerPosition(marker.getPosition());
+                });
+
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    updateMarkerStatus('Drag ended');
+                    geocodePosition(marker.getPosition());
+                });
+
+
+
+
+
+                function updateMarkerAddress(str) {
+                    document.getElementById('address').innerHTML = str;
+                    if(firstTime =='true')
+                    {
+                     document.getElementById('address').innerHTML='{!EditCase.Address_District360__c}';
+                     firstTime='false';
+                    }
+
+                }
+           
+
+   
+ 
+</script>
+
+
+
+
+
+
+
+
+</apex:page>

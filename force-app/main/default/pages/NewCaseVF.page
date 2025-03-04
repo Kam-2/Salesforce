@@ -1,0 +1,1810 @@
+<apex:page standardController="Case" sidebar="false" showHeader="false"  title="New Case">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key={! $label.GoogleAPI_Key_CasesPA}&libraries=places&language=en"
+    type="text/javascript"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, 'styles.css')}" />
+    
+    <style>
+    .slds-scope .slds-input, .rownew input { width:100% !important; }
+ .slds-scope textarea{  width:100% !important;}
+    </style>
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+         
+        <c:BootstrapStyle ></c:BootstrapStyle>
+        <apex:form id="thisform">
+            <apex:pageMessages />
+            <apex:slds />
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          
+            
+            
+            
+            <!-- FORM 1 HAS BEEN ENDED HERE AS SCRIPT FOR MAP AND THE SearchDiv (GOOGLE DATABSE ADDRESS SUGGESTION IS NOT WORKING INSIDE THE APEX:FORM)-->
+            
+            <!--CODE FOR THE GOOGLE MAP INTEGRATION -->
+            <!--<html>-->
+            
+            <head>
+                
+                
+                
+                
+               
+                
+                
+            </head>
+            
+            <body>
+                
+                <apex:outputPanel id="filePanel">      
+            <div style="width: 100%; overflow: hidden;">
+      <div class="row row-lw">
+        <div class="col-sm-6">
+          <div class="search-i">
+            <input type="text" style="border:2px solid;" id="autocomplete" size="37" class="wide-font autocompleteid" autocomplete="off"/>
+            </div>
+           <!-- <button class="slds-button slds-button_brand" onclick="sendDataToLWC();return false;">Send Message To LWC</button>-->
+        </div>
+          
+        <div class="col-sm-6">
+            <div class="col-sm-6 gridss">
+                <div class="new">
+                    <apex:outputText value="Latitude:" style="font-weight:bold;margin-right:7%;font-size:15px;text-align: left;"/><span style="font-size:15px;" id="latDiv"></span>
+                </div>
+                <div class="new">
+                    <apex:outputText value="Longitude:" style="font-weight:bold;margin-right:7%;font-size:15px;text-align: left;"/><span style="font-size:15px;" id="longDiv"></span>
+                </div>
+                </div>
+                <div class="col-sm-6 gridss">
+                <div class="row row-m">
+                    <apex:outputText value="Address:" style="font-weight:bold;margin-right:7%;font-size:15px;text-align: left;"/><span style="font-size:15px;" id="address"></span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div><br/>
+                
+            </apex:outputPanel>
+            
+            
+        </body>
+        
+        <!--</html>-->
+        <apex:outputPanel >
+            <div class="topdiv">
+<div style=" overflow: hidden;" class="MainDiv">
+<div  class="LocationPanelDiv" style="display:none;">  <div>
+
+         <!-- <apex:outputText value="Location Details" style="font-weight:bold;font-size:17px;"/>
+     <br/>    <br/>
+  
+        <div class="row" style="display:none;">
+            <div class="col-sm-4">
+             <apex:outputText value="Latitude:" style="font-weight:bold;"/><div id="latDiv"></div>
+            </div>
+            <div class="col-sm-4">
+            <apex:outputText value="Longitude:" style="font-weight:bold;"/><div id="longDiv"></div>
+            </div>
+            <div class="col-sm-4">
+            <apex:outputText value="Address:" style="font-weight:bold;"/><div id="address"></div> 
+            </div>
+        </div>-->
+    
+      
+         
+       
+        </div>
+        </div>
+   <div class="row">
+    <div class="col-sm-12" style="width:98%">  
+        <div id="mapCanvas" /> </div>
+    </div>
+  </div>
+<div class="maps">
+<div class="maps-child">
+<div class="slds-button-group slds-button-groups" role="group">
+            <button class="slds-button slds-button_neutral active" onclick="MapView();return false;">Map</button>
+            <button class="slds-button slds-button_neutral" onclick="satviewFun();return false;">Satellite</button>
+            <button class="slds-button slds-button_neutral" onclick="streetviewFun();return false;">Street View</button>
+            <button class="slds-button slds-button_neutral" onclick="returncurrentLocation();return false;">My Current Location</button>
+        </div>
+        </div>
+        </div>
+</div>
+          <script>
+          $('.slds-button_neutral').on('click', function() {
+  $(this).toggleClass('active');
+  $('.slds-button_neutral').not(this).removeClass('active');
+});
+</script> 
+            
+        </apex:outputPanel>
+        <br/>
+        
+        </apex:form>
+    <script>
+       
+        
+       var lexOrigin ="{!$Label.BaseURl}";
+        //console.log('baseurl'+baseurl);
+       
+       
+                  var Addresslatitude;
+            var Addresslongitude
+            var input = document.getElementById('autocomplete');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+            // Address search enhanced 
+            
+              autocomplete.addListener('place_changed', function() {
+                  
+                  
+                 
+        //  infowindow.close();
+        //  marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+              map.setZoom(18);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(18);  // Why 17? Because it looks good.
+          }
+     
+          ForPlaceSearched();
+                  
+                  
+        });
+            
+            
+            
+             function ForPlaceSearched(){
+                
+                
+                
+                 var geocoder = new google.maps.Geocoder();
+                var address = document.getElementById("autocomplete").value;
+                geocoder.geocode({
+                    'address': address
+                }, function(results, status) {
+
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        Addresslatitude = results[0].geometry.location.lat();
+                        Addresslongitude = results[0].geometry.location
+                            .lng();
+
+
+                        var latLng = new google.maps.LatLng(Addresslatitude, Addresslongitude);
+                        map = new google.maps.Map(document.getElementById(
+                            'mapCanvas'), {
+                            zoom: 18,
+                            center: latLng,
+                            disableDefaultUI: true,
+                             zoomControl: true,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        });
+
+                        
+                         
+                       
+                       
+                       updateMarkerPosition(latLng);
+                      // var x = event.keyCode;
+                       //console.log('You pressed :'+x);
+                      // if(x==13)
+                      // AddressTyping=true;
+                      // if(AddressTyping==true)
+                      // {
+                            marker = new google.maps.Marker({
+                            position: latLng,
+                            title: 'Drag on a location ',
+                            map: map,
+                            draggable: true
+                            
+                        });
+                        //   marker.addListener('click', function() { setTimeout(Open_Popup(),3000)});
+                       
+                      // }
+                      // else
+                       //{
+                          // alert('Please click Search button');
+                      // document.getElementById('searchbutton').style.padding='50px';
+                     //  highlightButton();
+                      // }
+                        geocodePosition(latLng);
+
+                        // Add Finding locations nearby event listeners.
+                        google.maps.event.addListener(marker,
+                            'dragstart',
+                            function() {
+                                updateMarkerAddress('Finding locations nearby...');
+                                
+                            });
+
+                        google.maps.event.addListener(marker, 'drag',
+                            function() {
+                                updateMarkerStatus('Finding locations nearby...');
+                                updateMarkerPosition(marker.getPosition());
+                                
+                            });
+
+                        google.maps.event.addListener(marker, 'dragend',
+                            function() {
+                                updateMarkerStatus('Drag ended');
+                                geocodePosition(marker.getPosition());
+                                
+                                
+                            });
+
+           
+
+                        function updateMarkerStatus(str) {
+                           //  document.getElementById('markerStatus').innerHTML =
+                         //   str;
+                        }
+
+                        function updateMarkerAddress(str) {
+                           document.getElementById('address').innerHTML =  str;
+                             
+
+                        }
+
+
+
+
+                       // passLAT(Addresslatitude, Addresslongitude);
+
+
+                        latpos = Addresslatitude;
+                        longpos = Addresslongitude;
+                        // alert('kam'+longpos);
+                        //alert(JSON.stringify(autocomplete));
+                        let msg = document.getElementById("autocomplete").value;
+                //document.getElementById("address").value;
+                        //alert('msg'+msg);
+            console.log(msg);
+                        
+            var message = {
+                name:"EmbedVflwc",
+                payload: {
+        latitude: latpos,
+        longitude: longpos,
+        autocompleteValue: msg
+    }
+
+                //payload:msg
+            };
+                 
+             
+            console.log(message);
+            parent.postMessage(message, lexOrigin); 
+                    }
+
+
+
+
+
+
+ l
+
+                });
+
+                
+                
+                    
+                 
+            }
+                
+    
+        
+        
+        
+        
+                                
+    </script>
+    
+    <style>
+    body .slds-scope center input.btn {
+    padding-right: 15px;
+    padding-left: 15px; background:none;
+}
+    .MainDiv #mapCanvas {
+    width: 100%;
+    height: 400px !important;
+    float: left;
+    border: 0px solid #ccc;
+    overflow: hidden;
+    border-radius:8px;
+    margin:0;
+}
+    #fileupload1, #fileupload2, #fileToUpload3 { display:block; }
+      .btn.slds-button.slds-button_brand.savebuttonCls { vertical-align:bottom; }
+      .search-i { margin-top:3px; margin-bottom:20px; }
+      .row-m { margin-bottom:3px; margin-top:3px; }
+      #SearchDiv span  {margin-left: 1%;}
+      .topdiv  { position:relative; }
+       .LocationPanelDiv {
+    margin-left: 1%;
+    font-size: 14px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+                .ButtonDiv{
+                    width:100%;
+                }
+        .form_file { width:100%; display:block; margin-top:2%; }
+        
+        .PanelBoard {
+        position: fixed;
+        width: 100%;
+        z-index: 99999999999;
+        border: 1px solid;
+        padding: 10px;
+        // border-radius:10px;
+        box-shadow: 5px 5px 8px #888888;
+        top: 0;
+        background: #f3f2f2;
+        }
+        
+        .fileup {
+        float: left;
+        width: 35%;
+        margin-left: 90px;
+        }
+        
+        .title1 {
+        font-size: 30px;
+        margin-left: 26%;
+        color: black;
+        }
+        
+        .bar-button {
+        margin-top: 0;
+        margin-left: 0%;
+        text-decoration: none;
+        border: 0;
+        border-radius: 2px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        }
+        .savebuttonCls{
+        position: absolute;
+        top: 33%;
+        
+        }
+        button.slds-button.slds-button_neutral.active{
+            background: #1739B0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    transition: .5s all cubic-bezier(0, 0.95, 0.58, 1);
+        }
+        
+        
+        body select, body .slds-scope .slds-input body select[size="0"], body select[size="1"], .slds-vf-scope select, .slds-vf-scope select[size="0"], .slds-vf-scope select[size="1"] {
+    border: 1px solid rgb(221, 219, 218);
+    max-width: 100%;
+    border-radius: .25rem;
+    background-color: rgb(255, 255, 255);
+    color: rgb(8, 7, 7);
+    -webkit-transition: border .1s linear,background-color .1s linear;
+    transition: border .1s linear,background-color .1s linear;
+    height: calc(1.875rem + (1px * 2));
+}
+          body {
+   background-color: white !important;
+}
+.slds-scope .slds-input { width:100% }
+ .slds-scope textarea{  width:100%}
+ @media screen and (max-width:375px) {
+ .slds-scope .slds-input { width:100% }
+ .slds-scope textarea{  width:100%}
+ }
+    
+      .dataCell{
+      background-color: #f4f6f9;
+       cursor :pointer;
+}
+          .slds-scope .slds-form-element.slds-form-element-new  .slds-form-element__control {  clear: none; }
+            .slds-button.slds-button_neutral.slds-button_1 {
+                float: none;
+                width: auto;
+            }
+            
+            .MenuInfoStyle {
+                font-size: 16px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #878680 !important;
+            }
+            
+            .slds-scope:not(html),
+            .slds-scope body {
+                font-size: .8125rem;
+                background: transparent;
+              
+            }
+            
+            .CaseDataStyle {
+                font-size: 18px;
+                font-weight: bold;
+                color: #596d90;
+                margin: -10%;
+            }
+            
+            #mapCanvas {
+                width: 100%;
+                height: 400px;
+                float: left;
+                overflow: hidden;
+            }
+            
+            #infoPanel {
+                float: right;
+                width: 21%;
+                margin-left: 10px;
+            }
+            
+            #infoPanel div {
+                margin-bottom: 5px;
+            }
+            
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux:after {
+                content: ' ';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 0;
+                width: 0;
+            }
+            
+            .slds-scope .slds-text-heading_medium,
+            .slds-scope .slds-text-heading--medium {
+                font-weight: 300;
+                font-size: medium;
+                line-height: 1.25;
+            }
+            
+            input {
+                height: 30px;
+                padding-left: 10px;
+                border-radius: 4px;
+                border: 1px solid rgb(186, 178, 178);
+                box-shadow: 0px 0px 12px #EFEFEF;
+            }
+            
+            .toggleClass {
+                width: 246px;
+                float: left;
+            }
+            
+            .toggleClassStreet {
+                width: 260px;
+
+                float: left;
+            }
+            
+            .togglemap {
+                float: left;
+                width: 19%;
+            }
+            
+            .maintoggle {
+                // top: 180px;
+                position: absolute;
+                // right: 1%;
+                // width: 550px;
+                // margin-top: 5%;
+                margin-top: 7%;
+                margin-left: 2%;
+                position: relative;
+            }
+            
+          
+            .slds-scope .slds-input.testarea_in {
+                height: 210px;
+                width: 230px;
+                margin-left: 10px;
+            }
+            
+            #infoPanel {
+                width: 28%;
+                margin-left: 10px;
+                margin-top: 0px;
+            }
+            
+            .loc_class {
+                margin-left: 19px;
+            }
+            
+            .fileup {
+                float: left;
+                width: 35%;
+                margin-left: 90px;
+            }
+            
+            .slds-form-element-new {
+                margin-top: 9%;
+            }
+            
+            .ac-comment {
+                height: 121px;
+                width: 341px;
+                margin-left: 1%;
+            }
+            
+            .slds-form-elementac {
+                float: right;
+                width: 48%;
+            }
+            
+            .slds-form-elementac {
+                float: left;
+                width: 87%;
+                margin-left: 20px;
+            }
+            
+            #SearchDiv {
+            margin-top: -100px;
+                position: relative;
+                z-index: 999999999999999999999999999999999999;
+            }
+body.desktop {
+    overflow-x: hidden !important;
+}            
+          .slds-scope input.autocompleteid {
+        z-index: 999999999;
+        /* margin: 0 auto !important; */
+        border-radius: 4px;
+        display: block;
+        padding: 20px 12px;
+        margin-top: 25px !important;
+        margin-left: 0;
+        font-size: 15px;
+        box-shadow: none;
+        border: 1px solid #ccc !important;
+    }
+            .gridss{
+                margin-top:25px;
+            }
+            .new {
+    display: grid;
+    padding: 4px 0;
+    grid-template-columns: 1.5fr 3fr;
+}
+            .row.row-m {
+    display: flex;
+    flex-direction: row;
+    /* background: #fff; */
+    /* border-radius: 8px; */
+    /* border: 1px solid #ccc; */
+    padding: 4px 0;
+    /* border-bottom: 4px solid #000; */
+}
+            /*.row.row-m {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                padding: 10px 10px;
+                border-bottom: 4px solid #000;
+            }
+            .grids {
+                display: grid;
+                margin: 0 auto;
+                grid-template-columns: 1fr 1fr 1fr;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: 500px;
+                column-gap:20px;
+            }*/
+            .grids {
+                display: flex;
+                gap: 20px;
+            }
+            
+            .slds-button-groups {
+    position: relative;
+    z-index: 999999999999999999;
+    right: 5%;
+    top: 8%;
+    font-size: 15px;
+    height: 25px;
+    margin-left: auto;
+}
+.maps-child {
+    display: table;
+    margin: 0 auto;
+    width: auto;
+}
+.maps {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+}
+.slds-scope .slds-button-group, .slds-scope .slds-button-group-list {
+    display: inline-flex;
+    height: 8%;
+    gap: 20px;
+    background: #fff;
+    padding: 15px 42px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 9px #0000002b;
+}
+button.slds-button.slds-button_neutral:focus {
+    background: #1739B0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    transition: .5s all cubic-bezier(0, 0.95, 0.58, 1);
+}
+button.slds-button.slds-button_neutral:hover{
+    background: #1739B0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: .5s all cubic-bezier(0, 0.95, 0.58, 1);
+    color: #fff;
+}
+            button.slds-button.slds-button_neutral {
+    background: #F1F4FD;
+    border: 0;
+    border-radius: 73px !important;
+    color: gray;
+}
+            @media screen and (min-width:768px) and (max-width:1024px) {
+                #mapCanvas {
+                    width: 100%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: 0px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 21px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 20px;
+                }
+                #SearchDiv {
+                    position: relative;
+                    z-index: 999999999999999999999999999999999999;
+                    margin-left: 10px;
+                }
+                .slds-scope input.autocompleteid {
+                    margin-left: 0%;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+                 .slds-button-groups {
+    position: absolute;
+    z-index: 999999999999999999;
+    right: 5%;
+    top: 5%;
+    font-size: 15px;
+    height: 25px;
+    margin-left: auto;
+}
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+            }
+            
+            @media screen and (max-width:767px) {
+             .form_file { width:100%; display:block; margin-top:5%; }
+             #SearchDiv span  {margin-left: 0%;}
+            .LocationPanelDiv {
+    margin-left: 1%;
+    font-size: 14px;
+    padding-top: 5%;
+    padding-bottom: 3%;
+}
+.slds-button-groups {
+        position: absolute;
+        z-index: 999999999999999999;
+        top: -116px;
+        font-size: 11px;
+        height: 123px !important;
+        margin-left: auto;
+        left: 5%;
+        right:unset;
+    }
+   .slds-scope .slds-button-group {
+    display: grid !important;
+    padding: 9px 9px !important;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    top: -121px !important;
+    height: 92px !important;
+    gap: 7px !important;
+}
+button.slds-button.slds-button_neutral {
+    background: #F1F4FD;
+    border: 0;
+    border-radius: 73px !important;
+    color: gray;
+    width: 100% !important;
+}
+.slds-scope .slds-button_neutral {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2px 5px 2px 0px;
+    float: left;
+    width: 100%;
+}
+.grids {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr ;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: auto;
+    row-gap: 20px;
+}
+                .slds-scope .slds-button-group {
+                    display: block;
+                }
+                .slds-scope .slds-button_neutral,
+                .slds-scope .slds-button--neutral {
+                    padding-left: .5rem;
+                    padding-right: .5rem;
+                    text-align: center;
+                    vertical-align: middle;
+                    margin: 2px 5px 2px 0px;
+                    float: left;
+                }
+                #mapCanvas {
+                    width: 100%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: 0px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 7px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 10px;
+                }
+                .fileup1 input[type="file"] {
+                display: block;
+                font-size: 12px;
+                margin-left: 0;
+                box-shadow: none;
+                }
+               #SearchDiv {
+    position: relative;
+    z-index: 999999999999999999999999999999999999;
+    margin-left: 10px;
+    margin-top: -140px;
+}
+                .slds-scope input.autocompleteid {
+                    margin-left: 0%;
+                    margin-top: 10px;
+                    width: 100%;
+                }
+                .slds-button-groups {
+    position: absolute;
+    z-index: 999999999999999999;
+    right: 5%;
+    top: 5%;
+    font-size: 12px;
+    height: 25px;
+    margin-left: auto;
+}
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+                .formgrid td {
+                    width: 100%;
+                    clear: both;
+                    display: block;
+                    padding-left: 10px;
+                }
+            }
+            
+            @media screen and (min-width:667px) and (max-width:760px) {
+                
+            }
+            
+            @media screen and (max-width:375px) {
+            .slds-scope .slds-button_neutral {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2px 5px 2px 0px;
+    float: left;
+    width: 100%;
+}
+            .slds-button-groups {
+    position: absolute;
+    z-index: 999999999999999999;
+    right: 7%;
+    top: 5%;
+    font-size: 11px;
+    height: 25px;
+    margin-left: auto;
+}
+
+                .LocationPanelDiv {
+    margin-left: 1%;
+    font-size: 14px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+              
+                .ButtonDiv{
+                    width:100%;
+                }
+                #mapCanvas {
+                    width: 100%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: 0px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 7px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 20px;
+                }
+                #SearchDiv {
+                    position: relative;
+                    z-index: 999999999999999999999999999999999999;
+                    margin-left: 10px;
+                }
+                .slds-scope input.autocompleteid {
+                    margin-left: 0%;
+                    margin-top: 10px;
+                    width: 100%;
+                }
+                
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+                .formgrid td {
+                    width: 100%;
+                    clear: both;
+                    display: block;
+                    padding-left: 10px;
+                }
+            }
+            
+            .col-xs-1,
+            .col-sm-1,
+            .col-md-1,
+            .col-lg-1,
+            .col-xs-2,
+            .col-sm-2,
+            .col-md-2,
+            .col-lg-2,
+            .col-xs-3,
+            .col-sm-3,
+            .col-md-3,
+            .col-lg-3,
+            .col-xs-4,
+            .col-sm-4,
+            .col-md-4,
+            .col-lg-4,
+            .col-xs-5,
+            .col-sm-5,
+            .col-md-5,
+            .col-lg-5,
+            .col-xs-6,
+            .col-sm-6,
+            .col-md-6,
+            .col-lg-6,
+            .col-xs-7,
+            .col-sm-7,
+            .col-md-7,
+            .col-lg-7,
+            .col-xs-8,
+            .col-sm-8,
+            .col-md-8,
+            .col-lg-8,
+            .col-xs-9,
+            .col-sm-9,
+            .col-md-9,
+            .col-lg-9,
+            .col-xs-10,
+            .col-sm-10,
+            .col-md-10,
+            .col-lg-10,
+            .col-xs-11,
+            .col-sm-11,
+            .col-md-11,
+            .col-lg-11,
+            .col-xs-12,
+            .col-sm-12,
+            .col-md-12,
+            .col-lg-12 {
+                position: relative;
+                min-height: 1px;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+            
+            .col-xs-1,
+            .col-xs-2,
+            .col-xs-3,
+            .col-xs-4,
+            .col-xs-5,
+            .col-xs-6,
+            .col-xs-7,
+            .col-xs-8,
+            .col-xs-9,
+            .col-xs-10,
+            .col-xs-11,
+            .col-xs-12 {
+                float: left;
+            }
+            
+            .col-xs-12 {
+                width: 100%;
+            }
+            
+            .col-xs-11 {
+                width: 91.66666667%;
+            }
+            
+            .col-xs-10 {
+                width: 83.33333333%;
+            }
+            
+            .col-xs-9 {
+                width: 75%;
+            }
+            
+            .col-xs-8 {
+                width: 66.66666667%;
+            }
+            
+            .col-xs-7 {
+                width: 58.33333333%;
+            }
+            
+            .col-xs-6 {
+                width: 50%;
+            }
+            
+            .col-xs-5 {
+                width: 41.66666667%;
+            }
+            
+            .col-xs-4 {
+                width: 33.33333333%;
+            }
+            
+            .col-xs-3 {
+                width: 25%;
+            }
+            
+            .col-xs-2 {
+                width: 16.66666667%;
+            }
+            
+            .col-xs-1 {
+                width: 8.33333333%;
+            }
+            
+            .col-xs-pull-12 {
+                right: 100%;
+            }
+            
+            .col-xs-pull-11 {
+                right: 91.66666667%;
+            }
+            
+            .col-xs-pull-10 {
+                right: 83.33333333%;
+            }
+            
+            .col-xs-pull-9 {
+                right: 75%;
+            }
+            
+            .col-xs-pull-8 {
+                right: 66.66666667%;
+            }
+            
+            .col-xs-pull-7 {
+                right: 58.33333333%;
+            }
+            
+            .col-xs-pull-6 {
+                right: 50%;
+            }
+            
+            .col-xs-pull-5 {
+                right: 41.66666667%;
+            }
+            
+            .col-xs-pull-4 {
+                right: 33.33333333%;
+            }
+            
+            .col-xs-pull-3 {
+                right: 25%;
+            }
+            
+            .col-xs-pull-2 {
+                right: 16.66666667%;
+            }
+            
+            .col-xs-pull-1 {
+                right: 8.33333333%;
+            }
+            
+            .col-xs-pull-0 {
+                right: auto;
+            }
+            
+            .col-xs-push-12 {
+                left: 100%;
+            }
+            
+            .col-xs-push-11 {
+                left: 91.66666667%;
+            }
+            
+            .col-xs-push-10 {
+                left: 83.33333333%;
+            }
+            
+            .col-xs-push-9 {
+                left: 75%;
+            }
+            
+            .col-xs-push-8 {
+                left: 66.66666667%;
+            }
+            
+            .col-xs-push-7 {
+                left: 58.33333333%;
+            }
+            
+            .col-xs-push-6 {
+                left: 50%;
+            }
+            
+            .col-xs-push-5 {
+                left: 41.66666667%;
+            }
+            
+            .col-xs-push-4 {
+                left: 33.33333333%;
+            }
+            
+            .col-xs-push-3 {
+                left: 25%;
+            }
+            
+            .col-xs-push-2 {
+                left: 16.66666667%;
+            }
+            
+            .col-xs-push-1 {
+                left: 8.33333333%;
+            }
+            
+            .col-xs-push-0 {
+                left: auto;
+            }
+            
+            .col-xs-offset-12 {
+                margin-left: 100%;
+            }
+            
+            .col-xs-offset-11 {
+                margin-left: 91.66666667%;
+            }
+            
+            .col-xs-offset-10 {
+                margin-left: 83.33333333%;
+            }
+            
+            .col-xs-offset-9 {
+                margin-left: 75%;
+            }
+            
+            .col-xs-offset-8 {
+                margin-left: 66.66666667%;
+            }
+            
+            .col-xs-offset-7 {
+                margin-left: 58.33333333%;
+            }
+            
+            .col-xs-offset-6 {
+                margin-left: 50%;
+            }
+            
+            .col-xs-offset-5 {
+                margin-left: 41.66666667%;
+            }
+            
+            .col-xs-offset-4 {
+                margin-left: 33.33333333%;
+            }
+            
+            .col-xs-offset-3 {
+                margin-left: 25%;
+            }
+            
+            .col-xs-offset-2 {
+                margin-left: 16.66666667%;
+            }
+            
+            .col-xs-offset-1 {
+                margin-left: 8.33333333%;
+            }
+            
+            .col-xs-offset-0 {
+                margin-left: 0;
+            }
+            
+            @media (min-width: 768px) {
+                .col-sm-1,
+                .col-sm-2,
+                .col-sm-3,
+                .col-sm-4,
+                .col-sm-5,
+                .col-sm-6,
+                .col-sm-7,
+                .col-sm-8,
+                .col-sm-9,
+                .col-sm-10,
+                .col-sm-11,
+                .col-sm-12 {
+                    float: left;
+                }
+                .col-sm-12 {
+                    width: 100%;
+                }
+                .col-sm-11 {
+                    width: 91.66666667%;
+                }
+                .col-sm-10 {
+                    width: 83.33333333%;
+                }
+                .col-sm-9 {
+                    width: 75%;
+                }
+                .col-sm-8 {
+                    width: 66.66666667%;
+                }
+                .col-sm-7 {
+                    width: 58.33333333%;
+                }
+                .col-sm-6 {
+                    width: 50%;
+                }
+                .col-sm-5 {
+                    width: 41.66666667%;
+                }
+                .col-sm-4 {
+                    width: 33.33333333%;
+                }
+                .col-sm-3 {
+                    width: 25%;
+                }
+                .col-sm-2 {
+                    width: 16.66666667%;
+                }
+                .col-sm-1 {
+                    width: 8.33333333%;
+                }
+                .col-sm-pull-12 {
+                    right: 100%;
+                }
+                .col-sm-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-sm-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-sm-pull-9 {
+                    right: 75%;
+                }
+                .col-sm-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-sm-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-sm-pull-6 {
+                    right: 50%;
+                }
+                .col-sm-pull-5 {
+                    right: 41.66666667%;
+                }
+                .col-sm-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-sm-pull-3 {
+                    right: 25%;
+                }
+                .col-sm-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-sm-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-sm-pull-0 {
+                    right: auto;
+                }
+                .col-sm-push-12 {
+                    left: 100%;
+                }
+                .col-sm-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-sm-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-sm-push-9 {
+                    left: 75%;
+                }
+                .col-sm-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-sm-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-sm-push-6 {
+                    left: 50%;
+                }
+                .col-sm-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-sm-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-sm-push-3 {
+                    left: 25%;
+                }
+                .col-sm-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-sm-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-sm-push-0 {
+                    left: auto;
+                }
+                .col-sm-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-sm-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-sm-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-sm-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-sm-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-sm-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-sm-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-sm-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-sm-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-sm-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-sm-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-sm-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-sm-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            @media (min-width: 992px) {
+                .col-md-1,
+                .col-md-2,
+                .col-md-3,
+                .col-md-4,
+                .col-md-5,
+                .col-md-6,
+                .col-md-7,
+                .col-md-8,
+                .col-md-9,
+                .col-md-10,
+                .col-md-11,
+                .col-md-12 {
+                    float: left;
+                }
+                .col-md-12 {
+                    width: 100%;
+                }
+                .col-md-11 {
+                    width: 91.66666667%;
+                }
+                .col-md-10 {
+                    width: 83.33333333%;
+                }
+                .col-md-9 {
+                    width: 75%;
+                }
+                .col-md-8 {
+                    width: 66.66666667%;
+                }
+                .col-md-7 {
+                    width: 58.33333333%;
+                }
+                .col-md-6 {
+                    width: 50%;
+                }
+                .col-md-5 {
+                    width: 41.66666667%;
+                }
+                .col-md-4 {
+                    width: 33.33333333%;
+                }
+                .col-md-3 {
+                    width: 25%;
+                }
+
+                .col-md-2 {
+                    width: 16.66666667%;
+                }
+                .col-md-1 {
+                    width: 8.33333333%;
+                }
+                .col-md-pull-12 {
+                    right: 100%;
+                }
+                .col-md-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-md-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-md-pull-9 {
+                    right: 75%;
+                }
+                .col-md-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-md-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-md-pull-6 {
+                    right: 50%;
+                }
+                .col-md-pull-5 {
+                    right: 41.66666667%;
+                }
+                .col-md-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-md-pull-3 {
+                    right: 25%;
+                }
+                .col-md-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-md-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-md-pull-0 {
+                    right: auto;
+                }
+                .col-md-push-12 {
+                    left: 100%;
+                }
+                .col-md-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-md-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-md-push-9 {
+                    left: 75%;
+                }
+                .col-md-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-md-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-md-push-6 {
+                    left: 50%;
+                }
+                .col-md-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-md-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-md-push-3 {
+                    left: 25%;
+                }
+                .col-md-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-md-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-md-push-0 {
+                    left: auto;
+                }
+                .col-md-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-md-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-md-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-md-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-md-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-md-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-md-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-md-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-md-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-md-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-md-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-md-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-md-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            @media (min-width: 1200px) {
+                .col-lg-1,
+                .col-lg-2,
+                .col-lg-3,
+                .col-lg-4,
+                .col-lg-5,
+                .col-lg-6,
+                .col-lg-7,
+                .col-lg-8,
+                .col-lg-9,
+                .col-lg-10,
+                .col-lg-11,
+                .col-lg-12 {
+                    float: left;
+                }
+                .col-lg-12 {
+                    width: 100%;
+                }
+                .col-lg-11 {
+                    width: 91.66666667%;
+                }
+                .col-lg-10 {
+                    width: 83.33333333%;
+                }
+                .col-lg-9 {
+                    width: 75%;
+                }
+                .col-lg-8 {
+                    width: 66.66666667%;
+                }
+                .col-lg-7 {
+                    width: 58.33333333%;
+                }
+                .col-lg-6 {
+                    width: 50%;
+                }
+                .col-lg-5 {
+                    width: 41.66666667%;
+                }
+                .col-lg-4 {
+                    width: 33.33333333%;
+                }
+                .col-lg-3 {
+                    width: 25%;
+                }
+                .col-lg-2 {
+                    width: 16.66666667%;
+                }
+                .col-lg-1 {
+                    width: 8.33333333%;
+                }
+                .col-lg-pull-12 {
+                    right: 100%;
+                }
+                .col-lg-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-lg-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-lg-pull-9 {
+                    right: 75%;
+                }
+                .col-lg-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-lg-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-lg-pull-6 {
+                    right: 50%;
+                }
+                .col-lg-pull-5 {
+                    right: 41.66666667%;
+                }
+
+                .col-lg-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-lg-pull-3 {
+                    right: 25%;
+                }
+                .col-lg-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-lg-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-lg-pull-0 {
+                    right: auto;
+                }
+                .col-lg-push-12 {
+                    left: 100%;
+                }
+                .col-lg-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-lg-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-lg-push-9 {
+                    left: 75%;
+                }
+                .col-lg-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-lg-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-lg-push-6 {
+                    left: 50%;
+                }
+                .col-lg-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-lg-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-lg-push-3 {
+                    left: 25%;
+                }
+                .col-lg-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-lg-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-lg-push-0 {
+                    left: auto;
+                }
+                .col-lg-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-lg-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-lg-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-lg-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-lg-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-lg-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-lg-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-lg-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-lg-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-lg-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-lg-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-lg-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-lg-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            .row:after {
+                clear: both;
+            }
+            
+            .row:before,
+            .row:after {
+                display: table;
+                content: " ";
+            }
+            
+            label {
+                display: block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                font-weight: 700;
+            }
+            
+            .toprow .slds-input {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            }
+            
+            .toprow {
+                margin-bottom: 15px;
+            }
+            
+            .fileup input {
+                margin-bottom: 15px;900px            }
+
+        </style>
+</html>
+</apex:page>

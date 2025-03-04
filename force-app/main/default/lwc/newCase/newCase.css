@@ -1,0 +1,58 @@
+:host ::ng-deep .slds-form-actions {
+    display: none;
+}
+.custom-tab {
+    background-color: #0070d2;
+    color: white;
+}
+.slds-card__body{
+    padding: 0 44px;
+}
+.new-cards {
+    padding: 22px 52px !important;
+    background: #fff;
+}
+label{
+	font-size: 18px !important;
+}
+
+.card-child{
+	margin-bottom: 46px !important;
+    display: block;
+}
+.removeImage {
+    border-radius: 50%;
+    padding: 0px 4px;
+    margin: 8px 2px 8px 8px;
+    color: #fff;
+    background-color: #9f201b;
+    cursor: pointer;
+}
+a.slds-path__link {
+    font-size: 17px;
+    text-decoration: none;
+    font-weight: 500;
+}
+a.slds-path__link:focus {
+    text-decoration: none;
+}
+.forms-new {
+    padding: 4% 6%;
+}
+.fields{
+    font-size: 18px !important;
+}
+.custom-label label {
+    font-size: 16px !important; /* Adjust the font size as needed */
+}
+@media only screen and (max-width: 767px){
+
+.forms-new {
+    padding: 1% !important;
+    margin-top: 20px;
+}
+.grids{
+    width: 100% !important;
+    padding: 0;
+}
+}

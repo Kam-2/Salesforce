@@ -1,0 +1,121 @@
+<template>
+   <div class="new-cards">     
+<div class="slds-path">
+<div class="slds-grid slds-path__track">
+  <div class="slds-grid slds-path__scroller-container">
+    <div class="slds-path__scroller">
+      <div class="slds-path__scroller_inner">
+        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal" >
+          <li class="slds-path__item slds-is-current slds-is-active slds-is-complete" role="presentation" onclick={casessinfo} data-path="caseinfo">
+            <a aria-selected="true" class="slds-path__link" href="#" id="path-1" role="option" tabindex="0"> 
+              <span class="slds-path__title">Case Information</span>
+             </a>
+          </li>
+          <li class="slds-path__item slds-is-incomplete" role="presentation" onclick={locate} data-path="locinfo">
+             <a aria-selected="false" class="slds-path__link" href="#" id="path-2" role="option" tabindex="-1">
+              <span class="slds-path__title">Location Information</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  
+      <lightning-record-edit-form 
+          object-api-name="Case"
+          onsuccess={handleSuccess} onsubmit={onSubmitHandler}>
+  <div>
+  <div data-id="caseinfo" class="forms-new">
+
+      <lightning-accordion allow-multiple-sections-open
+                         onsectiontoggle={handleSectionToggle}
+                         active-section-name={activeSections} >
+        <lightning-accordion-section name="A" label="Case Information">
+             
+  <div >
+  <div >
+        <lightning-messages></lightning-messages>  
+
+      <div data-id="casedetails">
+         <lightning-layout vertical-align="start" class="slds-grid slds-wrap">         
+            <template if:true={formFields}>
+              <template for:each={formFields} for:item="fieldName">
+                 <lightning-layout-item key={fieldName.idx} size="6" class="slds-col slds-size_6-of-12 slds-small-size--1-of-1 slds-medium-size--1-of-2 grids" padding="around-small">
+                  <div  key={fieldName.Id} class="slds-col slds-size_1-of-1 fields">
+                  <lightning-input-field key={fieldName.apiName} field-name={fieldName.apiName} value={inputFieldValue} style="padding-left: 10px;font-weight: 600;font-size: 13px;" class="custom-label"></lightning-input-field>
+                  </div>
+                  </lightning-layout-item>
+              </template>          
+          </template>
+         </lightning-layout>
+      
+          <br/>
+          <br/>
+      
+      <div class="slds-p-horizontal_xx-large">
+        <div class="slds-align_absolute-center">
+          <lightning-button label="Back" class="slds-m-right_small back-btn" onclick={handlebacktolist} ></lightning-button>
+          <lightning-button label="Next" class="nxt-btn" variant="brand"  onclick={handleClickNext}></lightning-button>
+        </div>
+      </div> 
+   </div>  
+</div>
+</div>
+</lightning-accordion-section>
+</lightning-accordion>
+</div>
+
+<div class="slds-hide" data-id="locinfo">
+  <div class="slds-scrollable_y">
+     
+      <br/>
+      <div >
+      <iframe id="NewCaseVF" src="/apex/NewCaseVF"  allow={label.Vfpageurl} width="100%" height="600px" scrolling="No" style="border:0px solid #ccc !important;padding-bottom:0px !important;"> </iframe>
+
+      <div class="slds-m-around_medium img-up" style="margin-bottom: 10px">
+        <template if:true={showSpinner} >
+            <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass"></lightning-spinner>
+        </template>
+        <br/>
+         <lightning-input type="file"
+                         label="Multiple Upload Attachment/Photos"
+                         onchange={handleFileUploaded}
+                         multiple>
+         </lightning-input>
+         <lightning-helptext content="Maximum File size 3MB"></lightning-helptext>
+      
+          <template if:true={filesData}>
+            <template for:each={filesData} for:item="imgName" for:index="index">
+                {imgName.fileName}
+                <span key={imgName.fileName} data-id={index} onclick={removeReceiptImage} class="removeImage">X</span> &nbsp;
+            </template>
+        </template>
+       </div>
+
+       <template if:true={fileData}>
+          <p>
+              <lightning-button-icon
+                  variant="border-filled"
+                  alternative-text="Remove"
+                  icon-name="utility:close"
+                  title="Remove"
+                  onclick={removeFile}></lightning-button-icon>
+              {fileData.filename}
+          </p>
+      </template>
+       
+<br/>
+
+         <div class="slds-align_absolute-center " style="margin-bottom: 60px">
+            <lightning-button class="slds-m-right_small back-btn" label="Back" type="button"  onclick={handleClickBack}></lightning-button>
+            <lightning-button class="nxt-btn"   label="Save" variant="brand"  type="submit" ></lightning-button>          
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+  </lightning-record-edit-form>
+  </div>
+</template>

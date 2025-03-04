@@ -1,0 +1,98 @@
+:host ::ng-deep .slds-form-actions {
+    display: none;
+}
+.custom-tab {
+    background-color: #0070d2;
+    color: white;
+}
+.slds-card__body{
+    padding: 0 44px;
+}
+.new-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.new-cards {
+    padding: 22px 52px !important;
+    background: #fff;
+}
+.slds-size_1-of-1.new {
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+}
+label{
+	font-size: 18px !important;
+}
+.card-child{
+	margin-bottom: 46px !important;
+    display: block;
+}
+.removeImage {
+    border-radius: 50%;
+    padding: 0px 4px;
+    margin: 8px 2px 8px 8px;
+    color: #fff;
+    background-color: #9f201b;
+    cursor: pointer;
+}
+a.slds-path__link {
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+}
+a.slds-path__link:focus {
+    text-decoration: none;
+}
+.forms-new {
+    padding: 4% 6%;
+}
+.fields{
+    font-size: 18px !important;
+    
+}
+
+.custom-label label {
+    font-size: 14px !important; /* Adjust the font size as needed */
+}
+
+.input-container {
+    display: flex;
+    align-items: center; /* Vertically align the items */
+}
+
+.lightning-input {
+    flex: 1; /* Make the input take up available space */
+    margin-right: 10px; /* Add margin to separate the input and helptext */
+}
+.slds-input-has-icon_left-right .slds-combobox__input.slds-combobox__input-value{
+    padding-left: 2.25rem !important;
+}
+.custom-label span{
+    font-size: 14px;
+}
+
+@media only screen and (max-width:767px){
+    .slds-size_1-of-1.new[c-newCaseLWC_newCaseLWC] {
+    display: grid;
+    grid-template-columns: 1fr !important;
+}
+.forms-new {
+    padding: 1% !important;
+}
+.new-cards {
+    padding: 28px 10px !important;
+    background: #fff;
+}
+.new-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+}

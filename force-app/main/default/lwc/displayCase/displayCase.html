@@ -1,0 +1,89 @@
+<template>
+    <lightning-spinner if:true={showSpinner} alternative-text="Loading"></lightning-spinner>
+    
+    <lightning-record-view-form record-id={recordId} object-api-name="Case" density="comfy">
+        <h3 class="slds-section__title">
+            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action" onclick={sectionOne}>
+                <span class="slds-truncate" title="Section Title">
+                    <lightning-icon icon-name="utility:switch" size="x-small" class="slds-section__title-action-icon slds-button__icon_left" alternative-text="button icon"></lightning-icon>
+                    Case Information
+                </span>
+            </button>
+        </h3>
+        
+        <div class="slds-grid slds-wrap cs-detail">
+            <div class="slds-col slds-size_1-of-1">
+                <lightning-messages></lightning-messages>
+                <div data-id="caseinfo">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <template if:true={formFields}>
+                            <template for:each={formFields} for:item="fieldName">
+                                <div key={fieldName.Id} class="slds-col slds-size_1-of-2 fields slds-form-element_horizontal">
+                                    <lightning-output-field key={fieldName.apiName} field-name={fieldName.apiName} data-id="caseform" style="padding-left: 10px;font-weight: 600;font-size: 13px;" class="custom-label"></lightning-output-field>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section for Additional Information -->
+        <div data-id="additionalinfo" class="slds-hide">
+            <div class="slds-section slds-is-open" data-id={addid}>
+                <h3 class="slds-section__title">
+                    <button type="button" aria-controls={id} class="slds-button slds-section__title-action" data-buttonid={addid} onclick={toggleSection}>
+                        <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small" class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                        <span class="slds-truncate"> Additional Information </span>
+                    </button>
+                </h3>
+                <div class="slds-section__content cs-detail">
+                    <div class="slds-grid slds-wrap">
+                        <template if:true={setfullformFields}>
+                            <template for:each={setfullformFields} for:item="fieldName" for:index="index">
+                                <div if:true={fieldName.isVisible} class="slds-col slds-size_1-of-2 fields slds-form-element_horizontal" key={fieldName.Id}>
+                                    <lightning-output-field key={fieldName.apiName} field-name={fieldName.apiName} value={fieldName.value} data-id="caseform1" style="padding-left: 10px;font-weight: 600;font-size: 13px;" class="custom-label" required={fieldName.required}></lightning-output-field>
+                                </div>
+                            </template>
+                        
+                    </template>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- System Information Section -->
+        <h3 class="slds-section__title">
+            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action" onclick={sectionOne}>
+                <span class="slds-truncate" title="Section Title">
+                    <lightning-icon icon-name="utility:switch" size="x-small" class="slds-section__title-action-icon slds-button__icon_left" alternative-text="button icon"></lightning-icon>
+                    System Information
+                </span>
+            </button>
+        </h3>
+        <br/>
+        <!--div class="slds-grid">
+            <div class="slds-col slds-size_1-of-2 slds-form-element_horizontal">
+                <label>CreatedBy</label>
+                <lightning-output-field field-name="CreatedById"></lightning-output-field>
+                <lightning-output-field field-name="CreatedDate"></lightning-output-field>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-form-element_horizontal">
+                <label>LastModifiedBy</label>
+                <lightning-output-field field-name="LastModifiedById"></lightning-output-field>
+                <lightning-output-field field-name="LastModifiedDate"></lightning-output-field>
+            </div>
+        </div-->
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-2">
+                <label>CreatedBy</label>
+                <lightning-output-field field-name="CreatedById" variant="label-hidden" ></lightning-output-field>
+                <lightning-output-field field-name="CreatedDate"  variant="label-hidden"></lightning-output-field>
+           </div>
+            <div class="slds-col slds-size_1-of-2">
+                <label>LastModifiedBy</label>
+                <lightning-output-field field-name="LastModifiedById"  variant="label-hidden"></lightning-output-field>
+                <lightning-output-field field-name="LastModifiedDate"  variant="label-hidden" ></lightning-output-field>
+           </div>
+        </div>
+    </lightning-record-view-form>
+</template>
