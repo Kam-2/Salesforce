@@ -31,4 +31,4 @@ jobs:
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
-        sfdx force:source:deploy -x path/to/package.xml -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -x manifest/package.xml -u $SF_SANDBOX_USERNAME
