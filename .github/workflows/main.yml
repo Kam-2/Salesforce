@@ -31,5 +31,5 @@ jobs:
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
-        sfdx force:source:deploy -x manifest/package.xml -u $SF_SANDBOX_USERNAME
-        sfdx force:source:deploy -p force-app/main/default/classes/CaseImagecontroller.cls -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -p force-app/main/default/lwc/newCase -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -p force-app/main/default/classes/DynamicFieldSetController.cls -u $SF_SANDBOX_USERNAME
