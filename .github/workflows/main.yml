@@ -33,4 +33,6 @@ jobs:
       run: |
         sfdx force:source:deploy -x manifest/package.xml -u $SF_SANDBOX_USERNAME
         sfdx force:source:deploy -p force-app/main/default/lwc/newCase -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -p force-app/main/default/class/DynamicFieldSetController -u $SF_SANDBOX_USERNAME
+
 
