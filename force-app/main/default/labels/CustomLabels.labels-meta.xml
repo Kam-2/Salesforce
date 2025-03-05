@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>BaseURl</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BaseURl</shortDescription>
+        <value>https://cube84148-dev-ed.develop.lightning.force.com</value>
+    </labels>
+    <labels>
+        <fullName>Case_Information</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CaseInformation</shortDescription>
+        <value>Case Information</value>
+    </labels>
+    <labels>
+        <fullName>GoogleAPI_Key_CasesPA</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>GoogleAPI_Key_CasesPA</shortDescription>
+        <value>AIzaSyDuabEHHHzM0FyL0JQaWXtycjFWlgBN48o</value>
+    </labels>
+    <labels>
+        <fullName>Privacy_url</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Privacy url</shortDescription>
+        <value>https://district-360.com/files/2024/document/privacy-policy-downtown-neworleans.pdf</value>
+    </labels>
+    <labels>
+        <fullName>Show_End_Location_In_App</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Show End Location In App</shortDescription>
+        <value>Administer Safewalk</value>
+    </labels>
+    <labels>
+        <fullName>User_Manual</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>User Manual</shortDescription>
+        <value>https://district-360.com/files/2024/document/nola.pdf</value>
+    </labels>
+    <labels>
+        <fullName>VFURL</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>VFURL</shortDescription>
+        <value>geolocation https://cube84148-dev-ed--c.develop.vf.force.com</value>
+    </labels>
+</CustomLabels>
