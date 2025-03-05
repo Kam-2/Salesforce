@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>D360 FSA type,subtype and subsubtypes icon url, name and dependencies</description>
+    <label>District 360 FSA</label>
+    <pluralLabel>District 360 FSA</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>
