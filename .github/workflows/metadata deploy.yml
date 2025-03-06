@@ -28,13 +28,13 @@ jobs:
         sfdx force:auth:jwt:grant --clientid 3MVG9WVXk15qiz1JokwQNodKxoq7bXYXC4gMftqkABup4nMIzvmyfkdZ1wHSvX_Cr_00ckB9u9I1TxgytGihQ --jwtkeyfile server.key --username kamal26@gmail.com --instanceurl https://login.salesforce.com
    
     - name: Convert to MDAPI format
-        run: |
-          sfdx force:source:convert -r force-app -d mdapi_output
+      run: |
+        sfdx force:source:convert -r force-app -d mdapi_output
 
-      - name: Deploy All Metadata
-        run: |
-          sfdx force:mdapi:deploy -d mdapi_output -u ${{ secrets.SF_SANDBOX_USERNAME }} -w 10 --verbose
+    - name: Deploy All Metadata
+      run: |
+        sfdx force:mdapi:deploy -d mdapi_output -u ${{ secrets.SF_SANDBOX_USERNAME }} -w 10 --verbose
 
-      - name: Run Deployment Tests
-        run: |
-          sfdx force:apex:test:run -u ${{ secrets.SF_SANDBOX_USERNAME }} --resultformat human --wait 10
+    - name: Run Deployment Tests
+      run: |
+        sfdx force:apex:test:run -u ${{ secrets.SF_SANDBOX_USERNAME }} --resultformat human --wait 10
