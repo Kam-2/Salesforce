@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Committee</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Committees</value>
+    </caseValues>
+    <layouts>
+        <layout>Committee Layout_District360</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Send Email to Committee Members --></label>
+        <name>Send_Email_to_Committee_Members</name>
+    </quickActions>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Select which Board this Contact serves on. --></help>
+    <label><!-- BID Board Type --></label>
+    <name>BID_Board_Type_District360__c</name>
+    <picklistValues>
+        <masterLabel>BID Board</masterLabel>
+        <translation><!-- BID Board --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Foundation Board</masterLabel>
+        <translation><!-- Foundation Board --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

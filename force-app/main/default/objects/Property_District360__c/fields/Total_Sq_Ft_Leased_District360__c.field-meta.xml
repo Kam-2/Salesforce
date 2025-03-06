@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Sq_Ft_Leased_District360__c</fullName>
+    <label>Total Square Footage Leased</label>
+    <summarizedField>Tenants_District360__c.Total_Sq_Ft_Occupied_District360__c</summarizedField>
+    <summaryForeignKey>Tenants_District360__c.Property_District360__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

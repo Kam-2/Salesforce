@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Select a relevant Board Officer Position if relevant. --></help>
+    <label><!-- BID Board Officer Position --></label>
+    <name>BID_Board_Officer_Position_District360__c</name>
+    <picklistValues>
+        <masterLabel>Member-at-Large</masterLabel>
+        <translation><!-- Member-at-Large --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>President</masterLabel>
+        <translation><!-- President --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Secretary</masterLabel>
+        <translation><!-- Secretary --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Treasurer</masterLabel>
+        <translation><!-- Treasurer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vice President</masterLabel>
+        <translation><!-- Vice President --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rent_Type_District360__c</fullName>
+    <label>Rent Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Full Service</fullName>
+                <default>false</default>
+                <label>Full Service</label>
+            </value>
+            <value>
+                <fullName>Triple Net</fullName>
+                <default>false</default>
+                <label>Triple Net</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

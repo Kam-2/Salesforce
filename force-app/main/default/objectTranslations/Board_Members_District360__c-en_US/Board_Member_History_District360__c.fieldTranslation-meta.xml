@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Add any supplemental or helpful information regarding the Contact&apos;s Board Tenure. --></help>
+    <label><!-- Board Member History --></label>
+    <name>Board_Member_History_District360__c</name>
+</CustomFieldTranslation>

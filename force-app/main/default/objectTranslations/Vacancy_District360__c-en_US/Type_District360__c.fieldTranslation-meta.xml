@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>Type_District360__c</name>
+    <picklistValues>
+        <masterLabel>For Rent</masterLabel>
+        <translation><!-- For Rent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>For Sale</masterLabel>
+        <translation><!-- For Sale --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

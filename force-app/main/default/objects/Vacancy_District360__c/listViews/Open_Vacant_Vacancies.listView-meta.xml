@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Vacant_Vacancies</fullName>
+    <columns>NAME</columns>
+    <columns>Property_Name_District360__c</columns>
+    <columns>Stage_District360__c</columns>
+    <columns>Total_Square_Footage_District360__c</columns>
+    <columns>Total_Sq_Ft_Leased_District360__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Stage_District360__c</field>
+        <operation>equals</operation>
+        <value>Open/Vacant</value>
+    </filters>
+    <label>Open/Vacant Vacancies</label>
+</ListView>
