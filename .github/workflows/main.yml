@@ -31,4 +31,4 @@ jobs:
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
-        sfdx force:package:install --package 04tU1000000MGEDIA4 -u ${{ secrets.SF_SANDBOX_USERNAME }} --wait 10
+        sfdx force:package:install --package 04tU1000000MGEDIA4 --installationkey test1234 -u ${{ secrets.SF_SANDBOX_USERNAME }} --wait 10
