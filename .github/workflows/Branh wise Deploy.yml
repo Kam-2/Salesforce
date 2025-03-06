@@ -48,7 +48,7 @@ jobs:
           sfdx force:source:deploy -p force-app -u ${{ secrets.SF_SANDBOX_USERNAME }} --json --loglevel debug > deploy.log
         elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
           echo "Deploying to Sandbox Org"
-          sfdx force:source:deploy -p force-app -u ${{ secrets.SF_AI_USERNAME }} --json --loglevel debug > deploy.log
+          sfdx force:source:deploy -p manifest/package.xml -u ${{ secrets.SF_AI_USERNAME }} --json --loglevel debug > deploy.log
         fi
 
         # Check if the deployment succeeded
