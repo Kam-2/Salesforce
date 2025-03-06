@@ -32,4 +32,3 @@ jobs:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
         sfdx force:source:deploy -x manifest/package.xml -u ${{ secrets.SF_SANDBOX_USERNAME }} --json --loglevel debug > deploy.log
-
