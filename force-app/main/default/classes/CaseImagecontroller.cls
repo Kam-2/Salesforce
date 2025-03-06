@@ -16,10 +16,4 @@ public class CaseImagecontroller {
     }
       
 }
-// new line added by kamal and team
-//New line added for test purpose
-// last test
 
-// new line for test
-
-// another line

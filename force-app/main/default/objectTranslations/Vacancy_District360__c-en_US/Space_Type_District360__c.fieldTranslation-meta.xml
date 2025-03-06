@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Space Type --></label>
+    <name>Space_Type_District360__c</name>
+    <picklistValues>
+        <masterLabel>Event / Entertainment</masterLabel>
+        <translation><!-- Event / Entertainment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flex</masterLabel>
+        <translation><!-- Flex --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medical</masterLabel>
+        <translation><!-- Medical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Office</masterLabel>
+        <translation><!-- Office --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Restaurant</masterLabel>
+        <translation><!-- Restaurant --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail</masterLabel>
+        <translation><!-- Retail --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail/Office</masterLabel>
+        <translation><!-- Retail/Office --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail/Residential</masterLabel>
+        <translation><!-- Retail/Residential --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail/Restaurant</masterLabel>
+        <translation><!-- Retail/Restaurant --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

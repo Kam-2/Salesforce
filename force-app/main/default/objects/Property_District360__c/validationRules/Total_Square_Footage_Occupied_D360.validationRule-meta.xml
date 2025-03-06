@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Square_Footage_Occupied_D360</fullName>
+    <active>true</active>
+    <description>Total Square Footage Occupied should not exceed more than Total Square Footage</description>
+    <errorConditionFormula>Total_Sq_Ft_Leased_District360__c &gt; Total_Square_Footage_District360__c</errorConditionFormula>
+    <errorMessage>Total Square Footage Occupied should not exceed more than Total Square Footage</errorMessage>
+</ValidationRule>

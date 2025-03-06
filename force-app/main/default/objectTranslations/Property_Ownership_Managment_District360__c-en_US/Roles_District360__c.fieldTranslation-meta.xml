@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Roles --></label>
+    <name>Roles_District360__c</name>
+    <picklistValues>
+        <masterLabel>Legal Representative</masterLabel>
+        <translation><!-- Legal Representative --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property Manager</masterLabel>
+        <translation><!-- Property Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property Owner</masterLabel>
+        <translation><!-- Property Owner --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status_District360__c</name>
+    <picklistValues>
+        <masterLabel>Contract Signed</masterLabel>
+        <translation><!-- Contract Signed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Interested - Initial</masterLabel>
+        <translation><!-- Interested - Initial --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Interested - Site Visited</masterLabel>
+        <translation><!-- Interested - Site Visited --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Negotiation/Review</masterLabel>
+        <translation><!-- Negotiation/Review --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Interested</masterLabel>
+        <translation><!-- Not Interested --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

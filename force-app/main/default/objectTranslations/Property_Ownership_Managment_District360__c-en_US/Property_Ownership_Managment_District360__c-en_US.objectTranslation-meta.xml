@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Property Ownership &amp; Management</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Property Ownership &amp; Management</value>
+    </caseValues>
+    <layouts>
+        <layout>Property Ownership &amp; Management Layout_District360</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You can select either Contact or Company. --></errorMessage>
+        <name>Company_or_Contact_inserted_D360</name>
+    </validationRules>
+</CustomObjectTranslation>

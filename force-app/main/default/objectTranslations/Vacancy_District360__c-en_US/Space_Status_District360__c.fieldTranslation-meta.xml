@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Space Status --></label>
+    <name>Space_Status_District360__c</name>
+    <picklistValues>
+        <masterLabel>Build Out</masterLabel>
+        <translation><!-- Build Out --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ready for Occupancy</masterLabel>
+        <translation><!-- Ready for Occupancy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tenant Improvements Needed</masterLabel>
+        <translation><!-- Tenant Improvements Needed --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

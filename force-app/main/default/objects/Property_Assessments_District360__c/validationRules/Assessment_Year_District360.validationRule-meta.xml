@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assessment_Year_District360</fullName>
+    <active>true</active>
+    <description>Assessment year field should have only 4 digits as follows &quot;YYYY&quot;</description>
+    <errorConditionFormula>OR(
+  NOT(LEN(Assessment_Year_District360__c ) &lt; 8),
+  AND(
+       REGEX(Assessment_Year_District360__c ,&quot;[^=,&lt;.&gt;/?~`]&quot;)
+  )
+)</errorConditionFormula>
+    <errorDisplayField>Assessment_Year_District360__c</errorDisplayField>
+    <errorMessage>It contain alphanumeric characters. Ex: 2019/20</errorMessage>
+</ValidationRule>

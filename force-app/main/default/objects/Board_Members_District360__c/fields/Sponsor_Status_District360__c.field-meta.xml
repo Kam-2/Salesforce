@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sponsor_Status_District360__c</fullName>
+    <label>Sponsor Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Current Sponsor</fullName>
+                <default>false</default>
+                <label>Current Sponsor</label>
+            </value>
+            <value>
+                <fullName>Former Sponsor</fullName>
+                <default>false</default>
+                <label>Former Sponsor</label>
+            </value>
+            <value>
+                <fullName>Prospective Sponsor</fullName>
+                <default>false</default>
+                <label>Prospective Sponsor</label>
+            </value>
+            <value>
+                <fullName>Declined Sponsorship</fullName>
+                <default>false</default>
+                <label>Declined Sponsorship</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
