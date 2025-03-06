@@ -1,0 +1,10 @@
+.dummy{
+	color : black;
+}
+/* 17-07-2024 */
+.cs-detail .slds-form-element__label{
+	padding: inherit;
+}
+lightning-output-field{
+	
+}

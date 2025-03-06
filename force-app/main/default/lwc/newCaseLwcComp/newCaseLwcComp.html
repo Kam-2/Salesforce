@@ -1,0 +1,206 @@
+<template>
+	<div class="new-cards">
+
+		<!--<lightning-card class="card-child">-->
+
+		<div class="slds-path">
+			<div class="slds-grid slds-path__track">
+				<div class="slds-grid slds-path__scroller-container">
+					<div class="slds-path__scroller">
+						<div class="slds-path__scroller_inner">
+							<ul class="slds-path__nav" role="listbox" aria-orientation="horizontal"> 
+								<li class="slds-path__item slds-is-current slds-is-active slds-is-complete cs-head" onclick={casessinfo}
+									role="presentation"  data-path="caseinfo"><!---->
+									<!--a aria-selected="true" class="slds-path__link" href="#" id="path-1" role="option"
+										tabindex="0"-->
+										<a class="slds-path__link" id="path-1" role="option"
+										tabindex="0">
+							<span class="slds-path__stage">
+								<svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+								<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+								</svg>
+							</span>
+										<span class="slds-path__title">Case Information</span>
+									</a>
+								</li>
+
+								<li class="slds-path__item slds-is-incomplete cs-head" role="presentation" onclick={locate}
+									data-path="locinfo"><!---->
+									<!--a aria-selected="false" class="slds-path__link" href="#" id="path-2" role="option"
+										tabindex="-1"-->
+									<a  class="slds-path__link"  id="path-2" role="option"
+										tabindex="-1">
+										<span class="slds-path__stage">
+                    <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                    </svg>
+                  </span>
+										<span class="slds-path__title">Location of the Case</span>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<lightning-record-edit-form object-api-name="Case" onsuccess={handleSuccess} onsubmit={onSubmitHandler}>
+			<div>
+				<div data-id="caseinfo" class="forms-new">
+
+					<div class="font-weight: bold;padding-left: 3px;">
+						<div class="slds-section slds-is-open" data-id={id}>
+							<!--section header-->
+							<h3 class="slds-section__title">
+								<button type="button" aria-controls={id} class="slds-button slds-section__title-action" data-buttonid={id}
+                    onclick={toggleSection1}>
+                    <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                        class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                    <span class="slds-truncate"> Case Information </span>
+                </button>
+							</h3>
+							<!--section body-->
+							<div class="slds-section__content">
+								<slot></slot>
+							</div>
+						</div>
+					</div>
+					<div class="slds-grid slds-grid_horizontal">
+						<div class="slds-col">
+							<lightning-messages></lightning-messages>
+							<div data-id="publicinfo">
+								<div class="slds-grid slds-gutters slds-wrap">
+									<div class="slds-size_1-of-1 new">
+										<template if:true={formFields}>
+											<template for:each={formFields} for:item="fieldName">
+												<div key={fieldName.Id} class="slds-col slds-size_1-of-1 fields">
+													<lightning-input-field key={fieldName.apiName}	field-name={fieldName.apiName} data-id="caseform" onchange={handleTypeChange} style="padding-left: 10px;font-weight: 600;font-size: 13px;" class="custom-label"></lightning-input-field>
+												</div>
+											</template>
+										</template>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-id="additionalinfo" class="slds-hide">
+						<div class="font-weight: bold">
+							<div class="slds-section slds-is-open" data-id={addid}>
+								<!--section header-->
+								<h3 class="slds-section__title">
+									<button type="button" aria-controls={addid} class="slds-button slds-section__title-action" data-buttonid={addid}
+                    onclick={toggleSection}>
+                    <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                        class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                    <span class="slds-truncate"> Additional Information </span>
+                </button>
+								</h3>
+								<!--section body-->
+								<div class="slds-section__content">
+									<slot></slot>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="slds-grid slds-grid_horizontal">
+						<div class="slds-col">
+							<div class="slds-size_1-of-1 ">
+								<template if:true={setfullformFields}>
+									<div data-id="Addinfo " class="new-grid">
+										<template if:true={toggleChng} for:each={setfullformFields} for:item="fieldName" for:index="index">
+											<!-- <div  key={fieldName.Id} > -->
+											<!--<div if:true={fieldName.isVisible} key={fieldName.Id}>-->
+												<div class="slds-col slds-size_1-of-1 fields" key={fieldName.Id}>
+													<lightning-input-field key={fieldName.apiName}  field-name={fieldName.apiName} value={fieldName.value} data-id="caseform1" style="padding-left: 10px;font-weight: 600;font-size: 13px;" class="custom-label" required={fieldName.required}></lightning-input-field>
+											</div>
+											<!-- </div> -->
+											<!-- </div> --> 
+										</template>
+									</div>
+								</template>
+								<template if:false={setfullformFields}>
+								</template>
+							</div>
+							<br/>
+							<div class="slds-p-horizontal_xx-large">
+								<div class="slds-align_absolute-center">
+									<lightning-button label="Back" class="slds-m-right_small back-btn"
+										onclick={handlebacktolist}></lightning-button>
+									<lightning-button label="Next" class="nxt-btn" variant="brand"
+										onclick={handleClickNext}></lightning-button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="slds-hide" data-id="locinfo">
+					<div class="slds-scrollable_y">
+						<!--<p>lattitude:{lattitude}</p>
+          <p>long:{longitude}</p>
+          <p>address:{address}</p>-->
+						<br/>
+						<div>
+							<!-- <iframe id="NewCaseVfMap" src="/apex/NewCaseVfMap"
+								allow={label.Vfpageurl}
+								width="100%" height="550px" scrolling="No"
+								style="border:0px solid #ccc !important;padding-bottom:0px !important;"> </iframe> -->
+                                      <iframe id="NewCaseVF" src="/apex/NewCaseVF"  allow={label.Vfpageurl} width="100%" height="600px" scrolling="No" style="border:0px solid #ccc !important;padding-bottom:0px !important;"> </iframe>
+
+
+							<!--<lightning-card title="Attachment Uploader">-->
+							<div class="slds-m-around_medium img-up" style="margin-bottom: 10px">
+								<!-- <lightning-input type="file" label="Upload Attachment/Photos" style="font-size: 13px;" accept=".pdf,.docx,.txt" onchange={openfileUpload}></lightning-input>
+            -->
+								<template if:true={showSpinner}>
+									<lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass">
+									</lightning-spinner>
+								</template>
+								<br/>
+								<div class="input-container">
+									<lightning-input type="file" label="Multiple Upload Attachment/Photos"	onchange={handleFileUploaded} multiple>	</lightning-input>
+									<lightning-helptext content="Maximum File size 3MB"></lightning-helptext>
+								</div>
+								<template if:true={filesData}>
+									<template for:each={filesData} for:item="imgName" for:index="index">
+										{imgName.fileName}
+										<span key={imgName.fileName} data-id={index} onclick={removeReceiptImage} class="removeImage">X</span>
+										&nbsp;
+									</template>
+								</template>
+							</div>
+							<!-- </lightning-card>-->
+							<template if:true={fileData}>
+								<p>
+									<lightning-button-icon variant="border-filled" alternative-text="Remove"
+										icon-name="utility:close" title="Remove" onclick={removeFile}>
+									</lightning-button-icon>
+									{fileData.filename}
+								</p>
+							</template>
+
+
+							<br/>
+							<div class="slds-align_absolute-center " style="margin-bottom: 60px">
+								<lightning-button class="slds-m-right_small back-btn" label="Back" type="button"
+									onclick={handleClickBack}></lightning-button>
+
+								<lightning-button class="nxt-btn" label="Save" variant="brand" type="submit">
+								</lightning-button>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</lightning-record-edit-form>
+	</div>
+	<!--</lightning-card>-->
+
+
+
+</template>
