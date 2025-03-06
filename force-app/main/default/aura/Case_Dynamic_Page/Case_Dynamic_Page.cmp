@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" controller="Case_Dynamic_Page_CTRL">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="Sections" type="List"/>
+    <aura:attribute name="CaseInfoFields" type="List"/>
+     <aura:attribute name="SystemInfoFields" type="List" default="['CreatedDate','LastModifiedDate']" />
+    <aura:attribute name="ThisCase" type="Object"/>
+    <aura:attribute name="FieldForThisType" type="Object[]"/>
+    <aura:attribute name="sectionFields" type="Object[]"  />
+    
+    <lightning:recordForm aura:id="myRecordForm" density="compact" onsuccess="{!c.Reload}" recordId="{!v.recordId}" objectApiName="Case" fields="{!v.CaseInfoFields}" columns="2" mode="view"  />	
+    
+    <aura:iteration items="{!v.Sections}" var="Section">
+        <button aria-controls="expando-unique-id" aria-expanded="true" name="{!Section.key}" class="slds-button slds-section__title-action" onclick="{!c.expandSection}">
+            <span class="slds-truncate" title="Section Title" name="{!Section.key}">
+                <lightning:icon iconName="utility:switch"
+                                size="x-small" aura:id="LocationsInvolvedIcon" 
+                                class="slds-section__title-action-icon slds-button__icon_left"
+                                alternativeText="button icon" />
+                {!Section.key}
+            </span>
+        </button> <br/>
+        <div id="{!Section.key}">
+            
+            <lightning:recordForm aura:id="myRecordForm" density="compact" recordId="{!v.recordId}" objectApiName="Case" fields="{!Section.value}" columns="2" mode="view"  />	
+        </div>
+    </aura:iteration>
+    <br/>
+ <!--  <lightning:recordForm aura:id="myRecordForm" density="compact"  recordId="{!v.recordId}" objectApiName="Case" fields="{!v.SystemInfoFields}" columns="2" mode="view"  />-->
+
+    <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Case" density="comfy">
+            <h3 class="slds-section__title">
+    <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action" onclick="{!c.sectionOne}">
+         <span class="slds-truncate" title="Section Title" >
+                <lightning:icon iconName="utility:switch"
+                                aura:id="articleOne"
+                                size="x-small"  
+                                class="slds-section__title-action-icon slds-button__icon_left"
+                                alternativeText="button icon" />
+             <lightning:icon aura:id="articleOne" iconName="utility:switch" alternativeText="button icon" class="slds-section__title-action-icon slds-button__icon_left slds-hide" size="x-small"></lightning:icon>
+                
+            </span>
+        System Information
+       </button> </h3><br/>
+        <div aura:id="articleOne">
+       <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+            <label>CreatedBy</label>
+              <lightning:outputField fieldName="CreatedById" variant="label-hidden" />
+            <lightning:outputField fieldName="CreatedDate"  variant="label-hidden"/>
+           </div>
+            <div class="slds-col slds-size_1-of-2">
+                 <label>LastModifiedBy</label>
+                  <lightning:outputField fieldName="LastModifiedById"  variant="label-hidden"/>
+            <lightning:outputField fieldName="LastModifiedDate"  variant="label-hidden" />
+           </div>
+        </div></div>
+    </lightning:recordViewForm>
+</aura:component>

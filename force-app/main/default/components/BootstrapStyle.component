@@ -1,0 +1,1881 @@
+<apex:component >
+<!--Style declaration for the page responsive for all devices-->
+  <!-- New styles for the new compoenents-->
+    <style>
+        	.myfieldl { margin-left:-12px; } 
+        .btn.slds-button.slds-button_brand { vertical-align: bottom; }
+        .lookupInput {
+		width: 100%;
+	}
+        .rownew .RightClass   { float:right;}
+        .row.rownew {
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+    
+    .form_file input#fileupload1 {  margin:15px 15px 0px 15px}
+	.form_file input#fileupload2 {  margin:15px 15px 0px 15px}
+	 .form_file input#fileToUpload3 {  margin:15px 15px 0px 15px}
+    .ButtonDivClass{
+        margin-left: 43%;
+    }
+    #span1{
+        display:none;cursor:pointer;
+    }
+     #span2{
+     display:none; cursor:pointer;
+ }
+ #span3{
+     display:none; cursor:pointer;
+ }
+     
+    .row{
+           /* margin-left: 10%;*/
+
+    }
+.stage.panelSlide{ background-color:#fff;}
+    html { background-color:#fff;}
+    .oneRecordActionWrapper.overridePresent {
+    background-color: #fff; }
+    .slds-brand-band.slds-brand-band_cover.slds-brand-band_none.slds-template_default.forceBrandBand { 
+    background: #fff !important; }
+    .desktop .slds-template_default, .desktop .slds-brand-band {  background: #fff !important; }
+    
+	.col-lg-offset-2 {
+    margin-left: 170px;
+}
+	.col-lg-4 {
+    width: 430px;
+}
+
+.panelSlide { background:#fff; }
+            
+.bar-button {
+
+    margin-top: 0;
+    
+    margin-left: 10%;
+   
+   text-decoration:none;
+    border: 0;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    
+
+}
+
+
+.title1{
+    font-size: 30px;
+
+color: black;
+margin-top:1%;
+font-weight:bold;
+float:right;
+}
+.PanelBoard{
+    position: fixed;
+    width: 100%;
+    z-index: 99999999999;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 5px 8px #888888;
+    top: 0;
+    background: #f3f2f2;
+}
+       .requiredBlock {
+            display: none;
+        }
+        
+        .requireStarCls {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+     <style>
+     .fieldlabelCls{
+    font-size:16px;
+}
+      .dataCell{
+      background-color: #f4f6f9;
+       cursor :pointer;
+}
+          .slds-scope .slds-form-element.slds-form-element-new  .slds-form-element__control {  clear: none; }
+            .slds-button.slds-button_neutral.slds-button_1 {
+                float: none;
+                width: auto;
+            }
+            
+            .MenuInfoStyle {
+                font-size: 16px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #878680 !important;
+            }
+            
+            .slds-scope:not(html),
+            .slds-scope body {
+                font-size: .8125rem;
+                background: transparent;
+              
+            }
+            body input[type] ~ input[type], body input[type] ~ select, body input[type] ~ select[size="0"], body input[type] ~ select[size="1"], body select ~ input[type], body select[size="0"] ~ input[type], body select[size="1"] ~ input[type], .slds-vf-scope input[type] ~ input[type], .slds-vf-scope input[type] ~ select, .slds-vf-scope input[type] ~ select[size="0"], .slds-vf-scope input[type] ~ select[size="1"], .slds-vf-scope select ~ input[type], .slds-vf-scope select[size="0"] ~ input[type], .slds-vf-scope select[size="1"] ~ input[type]{
+               margin-left:0px;
+            }
+            body label, .slds-vf-scope label {
+            
+                margin-left:0px;
+            }
+            .CaseDataStyle {
+                font-size: 18px;
+                font-weight: bold;
+                color: #596d90;
+                margin: -10%;
+            }
+            
+            #mapCanvas {
+                width: 900px;
+                height: 400px;
+                float: left;
+                overflow: hidden;
+            }
+            
+            #infoPanel {
+                float: right;
+                width: 21%;
+                margin-left: 10px;
+            }
+            
+            #infoPanel div {
+                margin-bottom: 5px;
+            }
+            
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked ~ .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox_toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked ~ .slds-checkbox--faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox_faux_container .slds-checkbox_faux:after,
+            .slds-scope .slds-checkbox--toggle [type=checkbox]:checked + .slds-checkbox--faux_container .slds-checkbox--faux:after {
+                content: ' ';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 0;
+                width: 0;
+            }
+            
+            .slds-scope .slds-text-heading_medium,
+            .slds-scope .slds-text-heading--medium {
+                font-weight: 300;
+                font-size: medium;
+                line-height: 1.25;
+            }
+            
+            input {
+                height: 30px;
+                padding-left: 10px;
+                border-radius: 4px;
+                border: 1px solid rgb(186, 178, 178);
+                box-shadow: 0px 0px 12px #EFEFEF;
+            }
+            
+            .toggleClass {
+                width: 246px;
+                float: left;
+            }
+            
+            .toggleClassStreet {
+                width: 260px;
+                float: left;
+            }
+            
+            .togglemap {
+                float: left;
+                width: 19%;
+            }
+            
+            .maintoggle {
+                // top: 180px;
+                position: absolute;
+                // right: 1%;
+                // width: 550px;
+                // margin-top: 5%;
+                margin-top: 7%;
+                margin-left: 2%;
+                position: relative;
+            }
+            
+            #mapCanvas {
+                width: 70%;
+                margin-left: 1%;
+                border: 2px solid;
+                z-index: 999;
+            }
+            
+            .slds-scope .slds-input.testarea_in {
+                height: 210px;
+                width: 230px;
+                margin-left: 10px;
+            }
+            
+            #infoPanel {
+                width: 27%;
+                margin-left: 10px;
+                margin-top: 5px;
+            }
+            
+            .loc_class {
+                margin-left: 19px;
+            }
+            
+            .fileup {
+                float: left;
+                width: 35%;
+                margin-left: 90px;
+            }
+            
+            .slds-form-element-new {
+                margin-top: 9%;
+            }
+            
+            .ac-comment {
+                height: 121px;
+                width: 341px;
+                margin-left: 1%;
+            }
+            
+            .slds-form-elementac {
+                float: right;
+                width: 48%;
+            }
+            
+            .slds-form-elementac {
+                float: left;
+                width: 87%;
+                margin-left: 20px;
+            }
+            
+            #SearchDiv {
+                position: relative;
+                z-index: 999999999999999999999999999999999999;
+            }
+            
+          .slds-scope input.autocompleteid {
+                z-index:999999999;
+                margin-left: 1%;
+                border-radius:60px;
+                width:500px;
+            }
+            
+            .slds-button-groups {
+                position: relative;
+                z-index: 999999999999999999;
+                margin-left: 38%;
+                top: 56px;
+            }
+            
+            @media screen and (min-width:768px) and (max-width:1024px) {
+              
+                #mapCanvas {
+                    width: 98%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: -30px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 21px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 20px;
+                }
+                #SearchDiv {
+                    position: relative;
+                    z-index: 999999999999999999999999999999999999;
+                    margin-left: 10px;
+                }
+                .slds-scope input.autocompleteid {
+                    margin-left: 1%;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+                .slds-button-groups {
+                    position: relative;
+                    z-index: 0;
+                    margin-left: 12px;
+                    top: 360px;
+                    z-index: 999999999999999999;
+                }
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+            }
+            
+            @media screen and (max-width:767px) {
+			.myfieldl { margin-left:0px; }
+			.rownewm  label { width:90%; }
+			.form_file input#fileToUpload3 {
+	margin: 12px 0px 0px 3px;
+	display: block;
+}
+.form_file input#fileupload2 {
+	margin: 12px 0px 0px 3px;
+	display: block;
+}
+.form_file input#fileupload1 {
+	margin: 12px 0px 0px 3px;
+	display: block;
+}
+                  .LeftClass{
+                    margin-left:0px;
+                }
+                .RightClass{
+                    margin-left:0px;
+                }
+                .slds-scope .slds-button-group {
+                    display: block;
+                }
+                .slds-scope .slds-button_neutral,
+                .slds-scope .slds-button--neutral {
+                    padding-left: .5rem;
+                    padding-right: .5rem;
+                    text-align: center;
+                    vertical-align: middle;
+                    margin: 2px 5px 2px 0px;
+                    float: left;
+                    width: 48%;
+                }
+                #mapCanvas {
+                    width: 98%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: -30px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 7px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 20px;
+                }
+                #SearchDiv {
+                    position: relative;
+                    z-index: 999999999999999999999999999999999999;
+                    margin-left: 10px;
+                }
+                .slds-scope input.autocompleteid {
+                    margin-left: 1%;
+                    margin-top: 10px;
+                }
+                .slds-button-groups {
+                    position: relative;
+                    margin-left: 12px;
+                    top: 360px;
+                    z-index: 999999999999999999;
+                }
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+                .formgrid td {
+                    width: 100%;
+                    clear: both;
+                    display: block;
+                    padding-left: 10px;
+                }
+            }
+            
+            @media screen and (min-width:667px) and (max-width:760px) {
+               /* .row {
+                    margin-left: 25%;
+                }*/
+            }
+            
+            @media screen and (max-width:375px) {
+                 .ButtonDivClass{
+        margin-left: 33%;
+    }
+    #fileupload2{
+        margin-top:10%;
+    }
+      #fileToUpload3{
+        margin-top:10%;
+    }
+                .LeftClass{
+                    margin-left:0px;
+                }
+                 .RightClass{
+                    margin-left:0px;
+                }
+                #mapCanvas {
+                    width: 98%;
+                    margin-left: 1%;
+                    border: 2px solid;
+                    z-index: 999;
+                    margin-top: -30px;
+                }
+                .slds-scope .slds-input.testarea_in {
+                    height: 210px;
+                    width: 90%;
+                    margin-left: 10px;
+                }
+                #infoPanel {
+                    width: 95%;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                }
+                .loc_class {
+                    margin-left: 7px;
+                }
+                .fileup {
+                    float: left;
+                    width: 95%;
+                    margin-left: 17px;
+                }
+                .ac-comment {
+                    height: 121px;
+                    width: 100%;
+                    margin-left: 1%;
+                }
+                .slds-form-elementac {
+                    float: left;
+                    width: 87%;
+                    margin-left: 20px;
+                }
+                #SearchDiv {
+                    position: relative;
+                    z-index: 999999999999999999999999999999999999;
+                    margin-left: 10px;
+                }
+                .slds-scope input.autocompleteid {
+                    margin-left: 1%;
+                    margin-top: 10px;
+                }
+                .slds-button-groups {
+                    position: relative;
+                    margin-left: 12px;
+                    top: 360px;
+                    z-index: 999999999999999999;
+                }
+                .slds-text-heading_medium.slds-text-heading_mediumali {
+                    margin-top: 15px;
+                }
+                .formgrid td {
+                    width: 100%;
+                    clear: both;
+                    display: block;
+                    padding-left: 10px;
+                }
+                 .row {
+                    margin-left: 0px;
+                }
+            }
+            
+            .col-xs-1,
+            .col-sm-1,
+            .col-md-1,
+            .col-lg-1,
+            .col-xs-2,
+            .col-sm-2,
+            .col-md-2,
+            .col-lg-2,
+            .col-xs-3,
+            .col-sm-3,
+            .col-md-3,
+            .col-lg-3,
+            .col-xs-4,
+            .col-sm-4,
+            .col-md-4,
+            .col-lg-4,
+            .col-xs-5,
+            .col-sm-5,
+            .col-md-5,
+            .col-lg-5,
+            .col-xs-6,
+            .col-sm-6,
+            .col-md-6,
+            .col-lg-6,
+            .col-xs-7,
+            .col-sm-7,
+            .col-md-7,
+            .col-lg-7,
+            .col-xs-8,
+            .col-sm-8,
+            .col-md-8,
+            .col-lg-8,
+            .col-xs-9,
+            .col-sm-9,
+            .col-md-9,
+            .col-lg-9,
+            .col-xs-10,
+            .col-sm-10,
+            .col-md-10,
+            .col-lg-10,
+            .col-xs-11,
+            .col-sm-11,
+            .col-md-11,
+            .col-lg-11,
+            .col-xs-12,
+            .col-sm-12,
+            .col-md-12,
+            .col-lg-12 {
+                position: relative;
+                min-height: 1px;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+            
+            .col-xs-1,
+            .col-xs-2,
+            .col-xs-3,
+            .col-xs-4,
+            .col-xs-5,
+            .col-xs-6,
+            .col-xs-7,
+            .col-xs-8,
+            .col-xs-9,
+            .col-xs-10,
+            .col-xs-11,
+            .col-xs-12 {
+                float: left;
+            }
+            
+            .col-xs-12 {
+                width: 100%;
+            }
+            
+            .col-xs-11 {
+                width: 91.66666667%;
+            }
+            
+            .col-xs-10 {
+                width: 83.33333333%;
+            }
+            
+            .col-xs-9 {
+                width: 75%;
+            }
+            
+            .col-xs-8 {
+                width: 66.66666667%;
+            }
+            
+            .col-xs-7 {
+                width: 58.33333333%;
+            }
+            
+            .col-xs-6 {
+                width: 50%;
+            }
+            
+            .col-xs-5 {
+                width: 41.66666667%;
+            }
+            
+            .col-xs-4 {
+                width: 33.33333333%;
+            }
+            
+            .col-xs-3 {
+                width: 25%;
+            }
+            
+            .col-xs-2 {
+                width: 16.66666667%;
+            }
+            
+            .col-xs-1 {
+                width: 8.33333333%;
+            }
+            
+            .col-xs-pull-12 {
+                right: 100%;
+            }
+            
+            .col-xs-pull-11 {
+                right: 91.66666667%;
+            }
+            
+            .col-xs-pull-10 {
+                right: 83.33333333%;
+            }
+            
+            .col-xs-pull-9 {
+                right: 75%;
+            }
+            
+            .col-xs-pull-8 {
+                right: 66.66666667%;
+            }
+            
+            .col-xs-pull-7 {
+                right: 58.33333333%;
+            }
+            
+            .col-xs-pull-6 {
+                right: 50%;
+            }
+            
+            .col-xs-pull-5 {
+                right: 41.66666667%;
+            }
+            
+            .col-xs-pull-4 {
+                right: 33.33333333%;
+            }
+            
+            .col-xs-pull-3 {
+                right: 25%;
+            }
+            
+            .col-xs-pull-2 {
+                right: 16.66666667%;
+            }
+            
+            .col-xs-pull-1 {
+                right: 8.33333333%;
+            }
+            
+            .col-xs-pull-0 {
+                right: auto;
+            }
+            
+            .col-xs-push-12 {
+                left: 100%;
+            }
+            
+            .col-xs-push-11 {
+                left: 91.66666667%;
+            }
+            
+            .col-xs-push-10 {
+                left: 83.33333333%;
+            }
+            
+            .col-xs-push-9 {
+                left: 75%;
+            }
+            
+            .col-xs-push-8 {
+                left: 66.66666667%;
+            }
+            
+            .col-xs-push-7 {
+                left: 58.33333333%;
+            }
+            
+            .col-xs-push-6 {
+                left: 50%;
+            }
+            
+            .col-xs-push-5 {
+                left: 41.66666667%;
+            }
+            
+            .col-xs-push-4 {
+                left: 33.33333333%;
+            }
+            
+            .col-xs-push-3 {
+                left: 25%;
+            }
+            
+            .col-xs-push-2 {
+                left: 16.66666667%;
+            }
+            
+            .col-xs-push-1 {
+                left: 8.33333333%;
+            }
+            
+            .col-xs-push-0 {
+                left: auto;
+            }
+            
+            .col-xs-offset-12 {
+                margin-left: 100%;
+            }
+            
+            .col-xs-offset-11 {
+                margin-left: 91.66666667%;
+            }
+            
+            .col-xs-offset-10 {
+                margin-left: 83.33333333%;
+            }
+            
+            .col-xs-offset-9 {
+                margin-left: 75%;
+            }
+            
+            .col-xs-offset-8 {
+                margin-left: 66.66666667%;
+            }
+            
+            .col-xs-offset-7 {
+                margin-left: 58.33333333%;
+            }
+            
+            .col-xs-offset-6 {
+                margin-left: 50%;
+            }
+            
+            .col-xs-offset-5 {
+                margin-left: 41.66666667%;
+            }
+            
+            .col-xs-offset-4 {
+                margin-left: 33.33333333%;
+            }
+            
+            .col-xs-offset-3 {
+                margin-left: 25%;
+            }
+            
+            .col-xs-offset-2 {
+                margin-left: 16.66666667%;
+            }
+            
+            .col-xs-offset-1 {
+                margin-left: 8.33333333%;
+            }
+            
+            .col-xs-offset-0 {
+                margin-left: 0;
+            }
+            
+            @media (min-width: 768px) {
+                .col-sm-1,
+                .col-sm-2,
+                .col-sm-3,
+                .col-sm-4,
+                .col-sm-5,
+                .col-sm-6,
+                .col-sm-7,
+                .col-sm-8,
+                .col-sm-9,
+                .col-sm-10,
+                .col-sm-11,
+                .col-sm-12 {
+                    float: left;
+                }
+                .col-sm-12 {
+                    width: 100%;
+                }
+                .col-sm-11 {
+                    width: 91.66666667%;
+                }
+                .col-sm-10 {
+                    width: 83.33333333%;
+                }
+                .col-sm-9 {
+                    width: 75%;
+                }
+                .col-sm-8 {
+                    width: 66.66666667%;
+                }
+                .col-sm-7 {
+                    width: 58.33333333%;
+                }
+                .col-sm-6 {
+                    width: 50%;
+                }
+                .col-sm-5 {
+                    width: 41.66666667%;
+                }
+                .col-sm-4 {
+                    width: 33.33333333%;
+                }
+                .col-sm-3 {
+                    width: 25%;
+                }
+                .col-sm-2 {
+                    width: 16.66666667%;
+                }
+                .col-sm-1 {
+                    width: 8.33333333%;
+                }
+                .col-sm-pull-12 {
+                    right: 100%;
+                }
+                .col-sm-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-sm-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-sm-pull-9 {
+                    right: 75%;
+                }
+                .col-sm-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-sm-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-sm-pull-6 {
+                    right: 50%;
+                }
+                .col-sm-pull-5 {
+                    right: 41.66666667%;
+                }
+                .col-sm-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-sm-pull-3 {
+                    right: 25%;
+                }
+                .col-sm-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-sm-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-sm-pull-0 {
+                    right: auto;
+                }
+                .col-sm-push-12 {
+                    left: 100%;
+                }
+                .col-sm-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-sm-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-sm-push-9 {
+                    left: 75%;
+                }
+                .col-sm-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-sm-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-sm-push-6 {
+                    left: 50%;
+                }
+                .col-sm-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-sm-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-sm-push-3 {
+                    left: 25%;
+                }
+                .col-sm-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-sm-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-sm-push-0 {
+                    left: auto;
+                }
+                .col-sm-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-sm-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-sm-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-sm-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-sm-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-sm-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-sm-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-sm-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-sm-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-sm-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-sm-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-sm-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-sm-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            @media (min-width: 992px) {
+                .col-md-1,
+                .col-md-2,
+                .col-md-3,
+                .col-md-4,
+                .col-md-5,
+                .col-md-6,
+                .col-md-7,
+                .col-md-8,
+                .col-md-9,
+
+                .col-md-10,
+                .col-md-11,
+                .col-md-12 {
+                    float: left;
+                }
+                .col-md-12 {
+                    width: 100%;
+                }
+                .col-md-11 {
+                    width: 91.66666667%;
+                }
+                .col-md-10 {
+                    width: 83.33333333%;
+                }
+                .col-md-9 {
+                    width: 75%;
+                }
+                .col-md-8 {
+                    width: 66.66666667%;
+                }
+                .col-md-7 {
+                    width: 58.33333333%;
+                }
+                .col-md-6 {
+                    width: 50%;
+                }
+                .col-md-5 {
+                    width: 41.66666667%;
+                }
+                .col-md-4 {
+                    width: 33.33333333%;
+                }
+                .col-md-3 {
+                    width: 25%;
+                }
+                .col-md-2 {
+                    width: 16.66666667%;
+                }
+                .col-md-1 {
+                    width: 8.33333333%;
+                }
+                .col-md-pull-12 {
+                    right: 100%;
+                }
+                .col-md-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-md-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-md-pull-9 {
+                    right: 75%;
+                }
+                .col-md-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-md-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-md-pull-6 {
+                    right: 50%;
+                }
+                .col-md-pull-5 {
+                    right: 41.66666667%;
+                }
+                .col-md-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-md-pull-3 {
+                    right: 25%;
+                }
+                .col-md-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-md-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-md-pull-0 {
+                    right: auto;
+                }
+                .col-md-push-12 {
+                    left: 100%;
+                }
+                .col-md-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-md-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-md-push-9 {
+                    left: 75%;
+                }
+                .col-md-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-md-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-md-push-6 {
+                    left: 50%;
+                }
+                .col-md-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-md-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-md-push-3 {
+                    left: 25%;
+                }
+                .col-md-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-md-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-md-push-0 {
+                    left: auto;
+                }
+                .col-md-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-md-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-md-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-md-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-md-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-md-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-md-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-md-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-md-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-md-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-md-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-md-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-md-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            @media (min-width: 1200px) {
+                .col-lg-1,
+                .col-lg-2,
+                .col-lg-3,
+                .col-lg-4,
+                .col-lg-5,
+                .col-lg-6,
+                .col-lg-7,
+                .col-lg-8,
+                .col-lg-9,
+                .col-lg-10,
+                .col-lg-11,
+                .col-lg-12 {
+                    float: left;
+                }
+                .col-lg-12 {
+                    width: 100%;
+                }
+                .col-lg-11 {
+                    width: 91.66666667%;
+                }
+                .col-lg-10 {
+                    width: 83.33333333%;
+                }
+                .col-lg-9 {
+                    width: 75%;
+                }
+                .col-lg-8 {
+                    width: 66.66666667%;
+                }
+                .col-lg-7 {
+                    width: 58.33333333%;
+                }
+                .col-lg-6 {
+                    width: 50%;
+                }
+                .col-lg-5 {
+                    width: 41.66666667%;
+                }
+                .col-lg-4 {
+                    width: 33.33333333%;
+                }
+                .col-lg-3 {
+                    width: 25%;
+                }
+                .col-lg-2 {
+                    width: 16.66666667%;
+                }
+                .col-lg-1 {
+                    width: 8.33333333%;
+                }
+                .col-lg-pull-12 {
+                    right: 100%;
+                }
+                .col-lg-pull-11 {
+                    right: 91.66666667%;
+                }
+                .col-lg-pull-10 {
+                    right: 83.33333333%;
+                }
+                .col-lg-pull-9 {
+                    right: 75%;
+                }
+                .col-lg-pull-8 {
+                    right: 66.66666667%;
+                }
+                .col-lg-pull-7 {
+                    right: 58.33333333%;
+                }
+                .col-lg-pull-6 {
+                    right: 50%;
+                }
+                .col-lg-pull-5 {
+                    right: 41.66666667%;
+                }
+                .col-lg-pull-4 {
+                    right: 33.33333333%;
+                }
+                .col-lg-pull-3 {
+                    right: 25%;
+                }
+                .col-lg-pull-2 {
+                    right: 16.66666667%;
+                }
+                .col-lg-pull-1 {
+                    right: 8.33333333%;
+                }
+                .col-lg-pull-0 {
+                    right: auto;
+                }
+                .col-lg-push-12 {
+                    left: 100%;
+                }
+                .col-lg-push-11 {
+                    left: 91.66666667%;
+                }
+                .col-lg-push-10 {
+                    left: 83.33333333%;
+                }
+                .col-lg-push-9 {
+                    left: 75%;
+                }
+                .col-lg-push-8 {
+                    left: 66.66666667%;
+                }
+                .col-lg-push-7 {
+                    left: 58.33333333%;
+                }
+                .col-lg-push-6 {
+                    left: 50%;
+                }
+                .col-lg-push-5 {
+                    left: 41.66666667%;
+                }
+                .col-lg-push-4 {
+                    left: 33.33333333%;
+                }
+                .col-lg-push-3 {
+                    left: 25%;
+                }
+                .col-lg-push-2 {
+                    left: 16.66666667%;
+                }
+                .col-lg-push-1 {
+                    left: 8.33333333%;
+                }
+                .col-lg-push-0 {
+                    left: auto;
+                }
+                .col-lg-offset-12 {
+                    margin-left: 100%;
+                }
+                .col-lg-offset-11 {
+                    margin-left: 91.66666667%;
+                }
+                .col-lg-offset-10 {
+                    margin-left: 83.33333333%;
+                }
+                .col-lg-offset-9 {
+                    margin-left: 75%;
+                }
+                .col-lg-offset-8 {
+                    margin-left: 66.66666667%;
+                }
+                .col-lg-offset-7 {
+                    margin-left: 58.33333333%;
+                }
+                .col-lg-offset-6 {
+                    margin-left: 50%;
+                }
+                .col-lg-offset-5 {
+                    margin-left: 41.66666667%;
+                }
+                .col-lg-offset-4 {
+                    margin-left: 33.33333333%;
+                }
+                .col-lg-offset-3 {
+                    margin-left: 25%;
+                }
+                .col-lg-offset-2 {
+                    margin-left: 16.66666667%;
+                }
+                .col-lg-offset-1 {
+                    margin-left: 8.33333333%;
+                }
+                .col-lg-offset-0 {
+                    margin-left: 0;
+                }
+            }
+            
+            .row:after {
+                clear: both;
+            }
+            
+            .row:before,
+            .row:after {
+                display: table;
+                content: " ";
+            }
+            
+            label {
+                display: block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                font-weight: 700;
+            }
+            
+            .toprow .slds-input {
+                display: block;
+                width: 100%;
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+                -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            }
+            
+            .toprow {
+                margin-bottom: 15px;
+            }
+            
+            .fileup input {
+                margin-bottom: 15px;
+            }
+
+        </style>
+    
+    <script>  
+    var lexOrigin="{!$Label.BaseURl}";
+        var startPos, latpos, longpos;
+            var LatLng;
+            var map;
+
+var addre;
+           
+            function initialize() {
+                
+            }
+
+             window.onload = function() {
+            
+                var geoSuccess = function(position) {
+
+                    startPos = position;
+
+
+                    latpos = startPos.coords.latitude;
+                    longpos = startPos.coords.longitude;
+           
+
+
+                    //passLAT(latpos, longpos);
+
+
+                    var latLng = new google.maps.LatLng(latpos, longpos);
+
+
+
+                     map = new google.maps.Map(document.getElementById(
+                        'mapCanvas'), {
+                        zoom: 15,
+                        center: latLng,
+                        disableDefaultUI: true,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        title: 'Drag a location which has an issue',
+                        map: map,
+                        draggable: true
+                    });
+
+                    // Update current position info.
+                    updateMarkerPosition(latLng);
+                    geocodePosition(latLng);
+                    //alert('geo');
+                    
+                    var latti;
+                    var long;
+                    // Add dragging event listeners.
+                    google.maps.event.addListener(marker, 'dragstart',
+                        function() {
+                            //updateMarkerAddress('Dragging...');
+                        });
+
+                    google.maps.event.addListener(marker, 'drag',
+                        function() {
+                            updateMarkerStatus('Dragging...');
+                            updateMarkerPosition(marker.getPosition());
+                        });
+
+                    google.maps.event.addListener(marker, 'dragend',
+                        function() {
+                            updateMarkerStatus('Drag ended');
+                            geocodePosition(marker.getPosition());
+                            //alert('dragend'+marker.getPosition().lat());
+                            console.log('dragend'+marker);
+                            latti=marker.getPosition().lat();
+                            longi=marker.getPosition().lng();
+                            //reverseGeocode(latti, longi);
+                            //console.log('rev'+reverseGeocode(latti, longi));
+                             var lattitude = latti;
+                var longitudde = longi;
+                
+                console.log('lattitude'+lattitude);
+               var message = {
+                name:"EmbedVflwc",
+                payload: {
+        latitude: lattitude,
+        longitude: longitudde
+                    //autocompleteValue: addresses
+    }
+
+                //payload:msg
+            };
+                 
+             
+            console.log(message);
+                parent.postMessage(message, lexOrigin);
+                        });
+
+                    var lattitude = latpos;
+                var longitudde = longpos;
+                 
+                console.log('lattitude'+lattitude);
+               var message = {
+                name:"EmbedVflwc",
+                payload: {
+        latitude: lattitude,
+        longitude: longitudde,
+                    autocompleteValue: address
+    }
+
+                //payload:msg
+            };
+                 
+             
+            console.log(message);
+                parent.postMessage(message, lexOrigin);
+
+                };
+
+                navigator.geolocation.getCurrentPosition(geoSuccess);
+
+            };
+
+
+
+
+
+            var geocoder = new google.maps.Geocoder();
+var address;
+    
+            function geocodePosition(pos) {
+                var lattitude =pos.lat();
+                var longitudde=pos.lng();
+                
+                 geocoder.geocode({
+                    latLng: pos
+                }, function(responses) {
+                    if (responses && responses.length > 0) {
+                        updateMarkerAddress(responses[0].formatted_address);
+                        address = responses[0].formatted_address;
+                        
+                         var message = {
+                name:"EmbedVflwc",
+                payload: {
+                                   latitude: lattitude,
+                    longitude: longitudde,
+                    autocompleteValue: address
+    }
+
+                //payload:msg
+            };
+                 
+             
+            console.log(message);
+                        parent.postMessage(message, lexOrigin);
+
+                    } else {
+                        updateMarkerAddress(
+                            'Cannot determine address at this location.'
+                        );
+                    }
+                   passLAT(pos.lat(), pos.lng(),address);
+                  
+                    // parent.postMessage(message, lexOrigin);
+                });
+                
+                
+                
+
+            }
+
+            <!-- --------------------Changing the marker status based on moving ---------------------------------------------------------->
+
+
+            function updateMarkerStatus(str) {
+                // document.getElementById('markerStatus').innerHTML = str;
+            }
+
+            function updateMarkerPosition(latLng) {
+               
+                 document.getElementById('latDiv').innerHTML = latLng.lat();
+                   document.getElementById('longDiv').innerHTML = latLng.lng();
+              
+                latpos = latLng.lat();
+                longpos = latLng.lng();
+                
+                }
+
+            function updateMarkerAddress(str) {
+                document.getElementById('address').innerHTML = str;
+                
+
+            }
+
+
+
+
+
+
+
+            // Onload handler to fire off the app.
+            google.maps.event.addDomListener(window, 'load', initialize);
+            var j = true;
+
+            function streetviewFun() {
+
+
+               var addressWhenStreetView;
+
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('mapCanvas'), {
+                        position: {
+                            lat: latpos,
+                            lng: longpos
+                        },
+                        pov: {
+                            heading: 0,
+                            pitch: 0
+                        },
+                        motionTrackingControlOptions: {
+                            position: google.maps.ControlPosition.BOTTOM_CENTER
+                        }
+                    });
+
+
+
+                panorama.addListener('position_changed', function() {
+                    
+                     document.getElementById('latDiv').innerHTML = panorama.getPosition().lat();
+                   document.getElementById('longDiv').innerHTML = panorama.getPosition().lng();
+                   /* document.getElementById('info').innerHTML =
+                        '<b>Latitude : </b>' + [
+                            panorama.getPosition().lat(),
+                            panorama.getPosition().lng()
+                        ].join(' <br/><b>Longitude : </b>');*/
+
+
+                    var lpos = new google.maps.LatLng(panorama.getPosition()
+                        .lat(), panorama.getPosition().lng());
+
+
+                    var geocoder = geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({
+                        'latLng': lpos
+                    }, function(results, status) {
+                        if (status == google.maps.GeocoderStatus
+                            .OK) {
+                            if (results[0]) {
+                                document.getElementById(
+                                        'address').innerHTML =
+                                    results[0].formatted_address;
+                                    addressWhenStreetView= results[0].formatted_address;
+                            }
+                        }
+
+                       // passAddress(address);
+                    });
+
+         
+                   passLAT(panorama.getPosition().lat(), panorama.getPosition()
+                      .lng(), addressWhenStreetView);
+                    latpos = panorama.getPosition().lat();
+                    longpos = panorama.getPosition().lng();
+                   
+
+                });
+
+
+
+ var latLng = new google.maps.LatLng(latpos, longpos);
+
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    title: 'Drag on any location',
+                    map: panorama,
+                  
+                    draggable: true
+                });
+
+                //marker.addListener('click', function() { Open_Popup();});
+
+
+
+                // Update current position info.
+               // updateMarkerPosition(latLng);
+                //geocodePosition(latLng);
+
+                // Add dragging event listeners.
+                google.maps.event.addListener(marker, 'dragstart', function() {
+                    updateMarkerAddress('Dragging...');
+                });
+
+                google.maps.event.addListener(marker, 'drag', function() {
+                    updateMarkerStatus('Dragging...');
+                    updateMarkerPosition(marker.getPosition());
+                });
+
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    updateMarkerStatus('Drag ended');
+                    geocodePosition(marker.getPosition());
+                });
+
+
+
+
+
+                function updateMarkerStatus(str) {
+                    document.getElementById('markerStatus').innerHTML = str;
+                }
+
+                function updateMarkerAddress(str) {
+                    document.getElementById('address').innerHTML = str;
+
+                }
+
+
+            
+
+
+
+
+
+
+
+
+
+            }
+
+
+            var i = true;
+
+            function satviewFun() {
+
+                var latLng = new google.maps.LatLng(latpos, longpos);
+
+                 map = new google.maps.Map(document.getElementById(
+                    'mapCanvas'), {
+                    zoom: 18,
+                    center: latLng,
+                    disableDefaultUI: true,
+                     zoomControl: true,
+                    mapTypeId: google.maps.MapTypeId.HYBRID
+                });
+
+
+
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    title: 'Drag on any location',
+                    map: map,
+                   
+                    draggable: true
+                });
+                //marker.addListener('click', function() { Open_Popup();});
+
+                // Update current position info.
+                updateMarkerPosition(latLng);
+                geocodePosition(latLng);
+
+                // Add dragging event listeners.
+                google.maps.event.addListener(marker, 'dragstart', function() {
+                    //updateMarkerAddress('Dragging...');
+                });
+
+                google.maps.event.addListener(marker, 'drag', function() {
+                    //updateMarkerStatus('Dragging...');
+                    updateMarkerPosition(marker.getPosition());
+                });
+
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    //   updateMarkerStatus('Drag ended');
+                    geocodePosition(marker.getPosition());
+                });
+
+
+                function updateMarkerStatus(str) {
+                    //document.getElementById('markerStatus').innerHTML = str;
+                }
+
+                function updateMarkerAddress(str) {
+                    document.getElementById('address').innerHTML = str;
+
+                }
+
+            }
+
+            function MapView() {
+
+                
+
+                var geoSuccess = function(position) {
+                    startPos = position;
+
+                    
+
+
+
+
+
+
+                    var latLng = new google.maps.LatLng(latpos, longpos);
+
+
+
+
+                     map = new google.maps.Map(document.getElementById(
+                        'mapCanvas'), {
+                        zoom: 15,
+                        center: latLng,
+                        disableDefaultUI: true,
+                         zoomControl: true,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        title: 'Drag on any location',
+                        map: map,
+                        
+                        draggable: true
+                    });
+                    //marker.addListener('click', function() { Open_Popup();});
+                    // Update current position info.
+                    updateMarkerPosition(latLng);
+                    geocodePosition(latLng);
+
+                    // Add dragging event listeners.
+                    google.maps.event.addListener(marker, 'dragstart',
+                        function() {
+                            updateMarkerAddress('Dragging...');
+                        });
+
+                    google.maps.event.addListener(marker, 'drag', function() {
+                        // updateMarkerStatus('Dragging...');
+                        updateMarkerPosition(marker.getPosition());
+                    });
+
+                    google.maps.event.addListener(marker, 'dragend',
+                        function() {
+                            //  updateMarkerStatus('Drag ended');
+                            geocodePosition(marker.getPosition());
+                        });
+
+
+
+                };
+
+                navigator.geolocation.getCurrentPosition(geoSuccess);
+
+
+            }
+
+            function returncurrentLocation() {
+
+
+                
+                var geoSuccess = function(position) {
+                    startPos = position;
+                    console.log('startPos'+startPos);
+                   
+
+                    latpos = startPos.coords.latitude;
+                    longpos = startPos.coords.longitude;
+
+
+                   // passLAT(latpos, longpos);
+
+
+                    var latLng = new google.maps.LatLng(latpos, longpos);
+
+
+
+                     map = new google.maps.Map(document.getElementById(
+                        'mapCanvas'), {
+                        zoom: 15,
+                        center: latLng,
+                         disableDefaultUI: true,
+                          zoomControl: true,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        title: 'Drag on any location',
+                        map: map,
+                  
+                        draggable: true
+                    });
+                    // marker.addListener('click', function() { Open_Popup();});
+                    // Update current position info.
+                    updateMarkerPosition(latLng);
+                    geocodePosition(latLng);
+
+                    // Add dragging event listeners.
+                    google.maps.event.addListener(marker, 'dragstart',
+                        function() {
+                            updateMarkerAddress('Dragging...');
+                        });
+
+                    google.maps.event.addListener(marker, 'drag', function() {
+                        updateMarkerStatus('Dragging...');
+                        updateMarkerPosition(marker.getPosition());
+                    });
+
+                    google.maps.event.addListener(marker, 'dragend',
+                        function() {
+                            
+                            updateMarkerStatus('Drag ended');
+                            geocodePosition(marker.getPosition());
+                           
+                        });
+
+
+
+                };
+
+                navigator.geolocation.getCurrentPosition(geoSuccess);
+
+
+            }
+            
+            
+            
+            
+            
+         
+</script>
+</apex:component>

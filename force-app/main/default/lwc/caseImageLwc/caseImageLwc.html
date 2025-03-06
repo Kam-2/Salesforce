@@ -1,0 +1,28 @@
+<template>
+<!--<div>
+        <template if:true={attachedPhotos.length}>
+            <template for:each={attachedPhotos} for:item="att">
+                <div key={att.Id} class="attachment-item">
+                    <img src={att.DownloadUrl} width="200px" height="200px" />
+                </div>
+            </template>
+        </template>
+        <template if:false={attachedPhotos.length}>
+            <div>No Photos are attached.</div>
+        </template>
+    </div>-->
+     <div class="attachment-container">
+        <template if:true={attachedPhotos.data}>
+            <template for:each={getFormattedPhotos} for:item="photo">
+                <div key={photo.id} class="attachment-item">
+                    <a href={photo.url} target="_blank">
+                        {photo.id}
+                    </a>
+                </div>
+            </template>
+        </template>
+        <template if:false={attachedPhotos.data}>
+            No photos found.
+        </template>
+    </div>
+</template>

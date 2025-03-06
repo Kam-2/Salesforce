@@ -31,4 +31,5 @@ jobs:
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
-        sfdx force:source:deploy -p "force-app/main/default/lwc/newCase,force-app/main/default/classes/DynamicFieldSetController.cls,force-app/main/default/staticresources/Casecss.resource,force-app/main/default/labels/CustomLabels.labels-meta.xml" -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -p "force-app/main/default/lwc/newCase,force-app/main/default/classes/DynamicFieldSetController.cls,force-app/main/default/staticresources/Casecss,force-app/main/default/labels/CustomLabels.labels-meta.xml" -u $SF_SANDBOX_USERNAME
+       
