@@ -1,4 +1,4 @@
-name: Deploy to Salesforce
+name: Deploy all to Salesforce
 
 on:
   push:
@@ -23,12 +23,22 @@ jobs:
         SF_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
         SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
         SF_PRIVATE_KEY: ${{ secrets.SF_PRIVATE_KEY }}
-        SF_LOGIN_URL: https://login.salesforce.com  # Use https://login.salesforce.com for production
+        SF_LOGIN_URL: https://login.salesforce.com  # Use https://test.salesforce.com for sandbox
       run: |
         echo "$SF_PRIVATE_KEY" > server.key
-        sfdx force:auth:jwt:grant --clientid 3MVG9WVXk15qiz1JokwQNodKxoq7bXYXC4gMftqkABup4nMIzvmyfkdZ1wHSvX_Cr_00ckB9u9I1TxgytGihQ --jwtkeyfile server.key --username kamal26@gmail.com --instanceurl https://login.salesforce.com
+        sfdx force:auth:jwt:grant --clientid $SF_CONSUMER_KEY --jwtkeyfile server.key --username $SF_USERNAME --instanceurl $SF_LOGIN_URL
+
     - name: Deploy to Salesforce
       env:
         SF_SANDBOX_USERNAME: ${{ secrets.SF_SANDBOX_USERNAME }}
       run: |
-        sfdx force:source:deploy -p "force-app/main/default/lwc/newCase,force-app/main/default/classes/DynamicFieldSetController.cls,force-app/main/default/staticresources/Casecss.resource,force-app/main/default/labels/CustomLabels.labels-meta.xml" -u $SF_SANDBOX_USERNAME
+        sfdx force:source:deploy -p force-app -u $SF_SANDBOX_USERNAME
+
+        # Check if the deployment succeeded
+        if [ $? -eq 0 ]; then
+          echo "Deployment succeeded!"
+        else
+          echo "Deployment failed. Check the logs below:"
+          cat deploy.log
+          exit 1
+        fi
