@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Sponsor Status --></label>
+    <name>Sponsor_Status_District360__c</name>
+    <picklistValues>
+        <masterLabel>Current Sponsor</masterLabel>
+        <translation><!-- Current Sponsor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Declined Sponsorship</masterLabel>
+        <translation><!-- Declined Sponsorship --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Former Sponsor</masterLabel>
+        <translation><!-- Former Sponsor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prospective Sponsor</masterLabel>
+        <translation><!-- Prospective Sponsor --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

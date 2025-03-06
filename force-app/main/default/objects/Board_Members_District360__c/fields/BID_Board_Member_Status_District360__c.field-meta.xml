@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BID_Board_Member_Status_District360__c</fullName>
+    <inlineHelpText>Update the status of the Contact&apos;s Board Tenure.</inlineHelpText>
+    <label>BID Board Member Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Current Board Member</fullName>
+                <default>false</default>
+                <label>Current Board Member</label>
+            </value>
+            <value>
+                <fullName>Former Board Member</fullName>
+                <default>false</default>
+                <label>Former Board Member</label>
+            </value>
+            <value>
+                <fullName>Prospective Board Member</fullName>
+                <default>false</default>
+                <label>Prospective Board Member</label>
+            </value>
+            <value>
+                <fullName>Declined Board Membership</fullName>
+                <default>false</default>
+                <label>Declined Board Membership</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

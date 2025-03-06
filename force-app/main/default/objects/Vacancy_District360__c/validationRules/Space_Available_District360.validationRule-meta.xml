@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Space_Available_District360</fullName>
+    <active>true</active>
+    <description>Space available Square Footage cannot exceed the actual Square Footage of the building/property</description>
+    <errorConditionFormula>Space_Available_Sq_Ft_District360__c  &gt;  Property_Name_District360__r.Total_Square_Footage_District360__c  -  Property_Name_District360__r.Total_Sq_Ft_Leased_District360__c</errorConditionFormula>
+    <errorDisplayField>Space_Available_Sq_Ft_District360__c</errorDisplayField>
+    <errorMessage>Space Available Square Footage should not exceed than property</errorMessage>
+</ValidationRule>

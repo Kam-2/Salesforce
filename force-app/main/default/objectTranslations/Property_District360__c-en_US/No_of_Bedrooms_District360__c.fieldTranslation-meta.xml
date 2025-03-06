@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- No of Bedrooms --></label>
+    <name>No_of_Bedrooms_District360__c</name>
+    <picklistValues>
+        <masterLabel>1 Bedroom</masterLabel>
+        <translation><!-- 1 Bedroom --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 Bedrooms</masterLabel>
+        <translation><!-- 2 Bedrooms --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 Bedrooms</masterLabel>
+        <translation><!-- 3 Bedrooms --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Studio</masterLabel>
+        <translation><!-- Studio --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

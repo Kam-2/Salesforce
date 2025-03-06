@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Select what type of representation this Board Member fulfills. --></help>
+    <label><!-- Representation --></label>
+    <name>Representation_District360__c</name>
+    <picklistValues>
+        <masterLabel>BID Board Appointed</masterLabel>
+        <translation><!-- BID Board Appointed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Foundation Elected</masterLabel>
+        <translation><!-- Foundation Elected --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Merchants</masterLabel>
+        <translation><!-- Merchants --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property Owners</masterLabel>
+        <translation><!-- Property Owners --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

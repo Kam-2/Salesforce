@@ -1,0 +1,212 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" controller="sendEmailBoardofDirectors_CTRL" >
+    
+<aura:html tag="style">
+@media (min-width: 320px) and (max-width: 480px)
+{
+.buttonStyle
+{
+padding: 17px 2px 12px 2px;
+display: flex;
+position: relative;
+left: -15px;
+margin-left: 0px !important;    
+}
+}    
+@media (min-width: 481px) and (max-width: 767px) {    
+.buttonStyle
+{ 
+padding: 17px 2px 12px 2px;
+display: flex;
+position: relative;
+left: -15px;
+margin-left: 0px !important;    
+}
+}
+</aura:html>
+    <aura:attribute name="email" type="String"/>
+    <aura:attribute name="body" type="String" />
+    <aura:attribute name ="ThisAttachmentID" type="String"/>
+    <aura:attribute name="AttachIDs" type="List"/>
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="cc" type="String" />
+    <aura:attribute name="bcc" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="ContactRolesList" type="List" default=" "/>	
+    <aura:attribute name="disableTemplate" type="boolean" default="false" description=""/>
+    <aura:attribute name="selTempl" type="String" description=""/>
+    <aura:attribute name="templates" type="EmailTemplate[]" default="[]"/>
+    <aura:attribute name="templDetail" type="EmailTemplate" default="{}" />
+    <aura:attribute name="Contacts" type="List" default=" "/>
+    
+    <aura:attribute name="parentId" type="Id" default="{!v.recordId}" /> 
+    <!-- 'showLoadingSpinner' attribute for show/hide the uploading image and msg in aura:if-->
+    <aura:attribute name="showLoadingSpinner" type="boolean" default="false" />
+    
+    <!-- 'fileName' attribute for display the selected file name -->  
+    <aura:attribute name="fileName1" type="String"  />
+    <aura:attribute name="fileName2" type="String"  />
+    <aura:attribute name="fileName3" type="String"  />
+    <aura:attribute name="Toaddresses" type="List" />
+    <aura:attribute name="views_selected" type="List" default="[]"/>
+    <aura:attribute name="views" type="List" default="[]"/>
+    <aura:attribute name="views_selectedBcc" type="List" default="[]"/>
+    <aura:attribute name="viewsBcc" type="List" default="[]"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+        width: 80% !important;
+        max-width: 80% !important;
+        }
+    </aura:html>
+    
+    <aura:handler name="init"  action="{!c.doInit}" value="{!this}" />
+    
+    <div class="modal-header slds-modal__header">
+        Send Email to Board Members
+        
+    </div>
+    
+    <div id="div1">
+    <span>
+        <input  type="text" id="toEmail" class="slds-input" placeholder="To.." /><br/>
+        <aura:iteration var="pillLabel" items="{!v.ContactRolesList}" indexVar="i">
+            <span class="slds-pill">
+                
+                
+                <ui:outputText   value="{!pillLabel}" /> <br/>
+                
+                <button class="slds-button slds-button--icon slds-pill__remove"  data-index="{!i}" id="{!i}" title="Remove" onclick="{!c.removeToView}">
+                    <lightning:icon iconName="utility:close" size="x-small" class="slds-input__icon" alternativeText="Remove" />
+                </button>
+            </span>
+        </aura:iteration>
+    </span>
+    
+    
+    <div class="slds-form-element">
+                <label class="slds-form-element__label"></label>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">                               
+                                <lightning:input placeholder="Cc.." aura:id="search_string"  name="enter-search" label="Cc" variant="label-hidden" type="search" onchange="{!c.searchForLists}" />
+                                
+                                
+                                <aura:if isTrue="{!v.views_selected.length > 0}">
+                                	<lightning:pillContainer items="{!v.views_selected}" onitemremove="{!c.removeView}"/>
+                                </aura:if>
+                            </div> 
+                            <aura:if isTrue="{!v.views.length > 0}">
+                                <div id="listbox-id-2" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <aura:iteration items="{!v.views}" var="view">
+                                            <li role="presentation" class="slds-listbox__item">
+                                                <div aria-selected="true" class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_term" role="option" 
+                                                     data-value="{!view.Name}" onclick="{!c.selectView}">                                                    
+                                                   <span class="slds-media__figure slds-listbox__option-icon">
+                                                        
+													<lightning:icon iconName="standard:contact" alternativeText="Contact" size="small" class="slds-m-right_x-small"/>
+                                                    </span>
+                                                    <span class="slds-media__body"> 
+                                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!view.Name}</span>
+                                                   </span> 
+                                                </div>
+                                            </li>
+                                        </aura:iteration>
+                                    </ul>
+                                </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        
+        <div class="slds-form-element">
+                <label class="slds-form-element__label"></label>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">                               
+                                <lightning:input placeholder="Bcc.." aura:id="search_stringBcc"  name="enter-search" label="Cc" variant="label-hidden" type="search" onchange="{!c.searchForListsBcc}" />
+                                
+                                
+                                <aura:if isTrue="{!v.views_selectedBcc.length > 0}">
+                                	<lightning:pillContainer items="{!v.views_selectedBcc}" onitemremove="{!c.removeViewBcc}"/>
+                                </aura:if>
+                            </div> 
+                            <aura:if isTrue="{!v.viewsBcc.length > 0}">
+                                <div id="listbox-id-2" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <aura:iteration items="{!v.viewsBcc}" var="view">
+                                            <li role="presentation" class="slds-listbox__item">
+                                                <div aria-selected="true" class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_term" role="option" 
+                                                     data-value="{!view.Name}" onclick="{!c.selectViewBcc}">                                                    
+                                                   <span class="slds-media__figure slds-listbox__option-icon">
+                                                        
+													<lightning:icon iconName="standard:contact" alternativeText="Contact" size="small" class="slds-m-right_x-small"/>
+                                                    </span>
+                                                    <span class="slds-media__body"> 
+                                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!view.Name}</span>
+                                                   </span> 
+                                                </div>
+                                            </li>
+                                        </aura:iteration>
+                                    </ul>
+                                </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+    <!-- ui:inputemail value="{!v.AttendeesList}" placeholder="To.." >
+    </ui:inputemail><br/><br/ -->
+    
+   <!-- <lightning:input type="email" name="email1" value="{!v.cc}"  placeholder="Cc.." />
+    <lightning:input type="email" name="email2" value="{!v.bcc}"  placeholder="Bcc.." /> -->
+    
+    <div class="slds-col">
+        <lightning:select disabled="{!v.disableTemplate}" onchange="{!c.loadTemplate}"  name="SelectDivision" label="Select a Template:" aura:id="templateId" value="{!v.selTempl}">
+            <option text="None" value=""/>
+            
+            <aura:iteration items="{!v.templates}" var="item">
+                <option text="{!item.Name}" value="{!item.Id}"/>
+            </aura:iteration> 
+        </lightning:select>
+    </div>
+    
+    <lightning:input name="input1" value="{!v.subject}" placeholder="Subject.." /><br/>
+    
+    <!-- <ui:inputemail value="{!v.cc}"  placeholder="CC.."/><br/><br/>
+    <ui:inputText value="{!v.subject}" placeholder="Subject.."/><br/><br/> -->
+    <lightning:inputRichText value="{!v.body}" placeholder="Content.."/>
+    
+    
+    <!-- 'fileName' attribute for display the selected file name -->  
+    <!-- Lightning Input with file type and on file change call the 'handleFilesChange' controller --> 
+    
+    
+	<lightning:input aura:id="fileId1" onchange="{!c.handleFilesChange}" type="file" name="file1"  multiple="false"/>
+    <div class="slds-text-body_small slds-text-color_error"> Maximum upload file size is 5MB</div>
+    <div class="slds-text-body_small slds-text-color_default">{!v.fileName1} </div>
+    
+    <lightning:input aura:id="fileId2" onchange="{!c.handleFilesChange}" type="file" name="file2"  multiple="false"/>
+    <div class="slds-text-body_small slds-text-color_error"> Maximum upload file size is 5MB</div>
+    <div class="slds-text-body_small slds-text-color_default">{!v.fileName2} </div>
+    
+    <lightning:input aura:id="fileId3" onchange="{!c.handleFilesChange}" type="file" name="file3"  multiple="false"/>
+    <div class="slds-text-body_small slds-text-color_error"> Maximum upload file size is 5MB</div>
+    <div class="slds-text-body_small slds-text-color_default">{!v.fileName3} </div>
+    
+    <div class="buttonStyle" style="margin-left: 73%">
+        <lightning:button label="Preview" onclick="{!c.preview}" value="" aura:id="Previewemail" variant="brand" iconName="utility:preview" iconPosition="right"/>
+        <button class="slds-button slds-button--neutral" onclick="{!c.cancelSendingEmail}">Cancel</button>
+        <button class="slds-button slds-button--brand " onclick="{!c.sendListEmail}">Send</button>
+        
+    </div>
+    </div>
+     <div id="div2" style="display:none"><br/><br/>
+        To: <lightning:formattedRichText  value="{!v.ContactRolesList}" /><br/><br/>
+      <lightning:formattedRichText  value="{!v.body}" />  <br/><br/>
+        <button class="slds-button slds-button--neutral" onclick="{!c.unpreview}">Back</button>
+  </div>
+</aura:component>

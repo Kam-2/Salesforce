@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_of_Bedrooms_District360__c</fullName>
+    <label>No of Bedrooms</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Bedroom</fullName>
+                <default>false</default>
+                <label>1 Bedroom</label>
+            </value>
+            <value>
+                <fullName>2 Bedrooms</fullName>
+                <default>false</default>
+                <label>2 Bedrooms</label>
+            </value>
+            <value>
+                <fullName>3 Bedrooms</fullName>
+                <default>false</default>
+                <label>3 Bedrooms</label>
+            </value>
+            <value>
+                <fullName>Studio</fullName>
+                <default>false</default>
+                <label>Studio</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

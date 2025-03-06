@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Lease Type --></label>
+    <name>Lease_Type_District360__c</name>
+    <picklistValues>
+        <masterLabel>Direct</masterLabel>
+        <translation><!-- Direct --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pop-up</masterLabel>
+        <translation><!-- Pop-up --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sublet</masterLabel>
+        <translation><!-- Sublet --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

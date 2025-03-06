@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Stage --></label>
+    <name>Stage_District360__c</name>
+    <picklistValues>
+        <masterLabel>Closed/Occupied</masterLabel>
+        <translation><!-- Closed/Occupied --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Open/Vacant</masterLabel>
+        <translation><!-- Open/Vacant --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

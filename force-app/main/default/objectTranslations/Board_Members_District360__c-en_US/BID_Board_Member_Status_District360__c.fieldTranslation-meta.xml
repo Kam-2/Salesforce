@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Update the status of the Contact&apos;s Board Tenure. --></help>
+    <label><!-- BID Board Member Status --></label>
+    <name>BID_Board_Member_Status_District360__c</name>
+    <picklistValues>
+        <masterLabel>Current Board Member</masterLabel>
+        <translation><!-- Current Board Member --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Declined Board Membership</masterLabel>
+        <translation><!-- Declined Board Membership --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Former Board Member</masterLabel>
+        <translation><!-- Former Board Member --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prospective Board Member</masterLabel>
+        <translation><!-- Prospective Board Member --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

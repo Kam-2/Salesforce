@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Space_Type_District360__c</fullName>
+    <label>Space Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Event / Entertainment</fullName>
+                <default>false</default>
+                <label>Event / Entertainment</label>
+            </value>
+            <value>
+                <fullName>Flex</fullName>
+                <default>false</default>
+                <label>Flex</label>
+            </value>
+            <value>
+                <fullName>Medical</fullName>
+                <default>false</default>
+                <label>Medical</label>
+            </value>
+            <value>
+                <fullName>Office</fullName>
+                <default>false</default>
+                <label>Office</label>
+            </value>
+            <value>
+                <fullName>Restaurant</fullName>
+                <default>false</default>
+                <label>Restaurant</label>
+            </value>
+            <value>
+                <fullName>Retail</fullName>
+                <default>false</default>
+                <label>Retail</label>
+            </value>
+            <value>
+                <fullName>Retail/Office</fullName>
+                <default>false</default>
+                <label>Retail/Office</label>
+            </value>
+            <value>
+                <fullName>Retail/Residential</fullName>
+                <default>false</default>
+                <label>Retail/Residential</label>
+            </value>
+            <value>
+                <fullName>Retail/Restaurant</fullName>
+                <default>false</default>
+                <label>Retail/Restaurant</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Property</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Properties</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- ExistingPropertySelection_Columns --></label>
+        <name>ExistingPropertySelection_Columns</name>
+    </fieldSets>
+    <layouts>
+        <layout>Property Layout_District360</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Address Information --></label>
+            <section>Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Description --></label>
+            <section>Description</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Total Square Footage Occupied should not exceed more than Total Square Footage --></errorMessage>
+        <name>Total_Square_Footage_Occupied_D360</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- New_Properties_District360 --></label>
+        <name>New_Properties_District360</name>
+    </webLinks>
+</CustomObjectTranslation>
